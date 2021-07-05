@@ -11,7 +11,7 @@
             </div>
             <div class="danger" *ngIf="isLoginError" style="text-align: center; color:red; border-color:red; font-weight:bold;font-size:22px;">
                 <p>
-                    Wrong email or password !
+                    {{ loginErrorMessage }}
                 </p>
             </div>
             <div class="card-body">

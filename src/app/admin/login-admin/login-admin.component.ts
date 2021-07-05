@@ -10,7 +10,7 @@ import { LoginAdminService } from '../services/login-admin.service';
   styleUrls: ['./login-admin.component.css']
 })
 export class LoginAdminComponent implements OnInit {
-
+  loginErrorMessage = "";
   isLoginError : boolean = false;
   admin = new Admin();
   
@@ -30,6 +30,7 @@ export class LoginAdminComponent implements OnInit {
     document.getElementById("submit-btn").removeAttribute("disabled");
     document.getElementById("submit-btn").setAttribute("style","cursor: pointer;");
      this.isLoginError = true;
+     this.loginErrorMessage = err.error.message;
    });
    
  }

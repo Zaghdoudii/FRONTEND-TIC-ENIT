@@ -10,7 +10,7 @@ import { LoginUserService } from '../services/login-user.service';
   styleUrls: ['./login-user.component.css']
 })
 export class LoginUserComponent implements OnInit {
-
+  loginErrorMessage = "";
   isLoginError : boolean = false;
   user = new User("student");
   constructor(private loginUserService : LoginUserService, private router : Router) { }
@@ -35,6 +35,8 @@ export class LoginUserComponent implements OnInit {
     document.getElementById("submit-btn").removeAttribute("disabled");
     document.getElementById("submit-btn").setAttribute("style","cursor: pointer;");
      this.isLoginError = true;
+     this.loginErrorMessage = err.error.message;
+     
    });
    
  }
