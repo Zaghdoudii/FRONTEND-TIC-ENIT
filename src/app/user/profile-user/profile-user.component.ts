@@ -10,7 +10,7 @@ import { User } from '../models/user.model';
 })
 export class ProfileUserComponent implements OnInit {
 
-  readonly url = 'http://pfa2-nodejs.herokuapp.com/student/';
+  readonly url = 'http://backend-ticenit.herokuapp.com/student/';
   constructor(private http : HttpClient) { }
   user = new User("student");
   page = "profile";
