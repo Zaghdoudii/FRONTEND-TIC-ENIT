@@ -1,0 +1,359 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h2 class="card-title ">Search</h2>
+                        <select class="search_config" name="search" (input)="this.entity=$event.target.value" style="margin-right: 5px;">
+                            <option value="" disabled selected>What are you looking for ?</option>
+                            <option value="student" [selected]="this.entity == 'student'">Students</option>
+                            <option value="company" [selected]="this.entity == 'company'"> Companies </option>
+                            <option value="student" [selected]="this.entity == 'pfa'">PFA</option>
+                            <option value="company" [selected]="this.entity == 'pfe'"> PFE </option>
+                            <option value="student" [selected]="this.entity == 'internship'">Internships</option>
+                            <option value="company" [selected]="this.entity == 'job'"> Jobs </option>
+                       </select>
+                        <select *ngIf="this.entity != ''" class="search_config" name="search" id="s" (input)="this.property=$event.target.value">
+                            <option value="" disabled selected>Search with...</option>
+                            <option value="firstname" *ngIf="this.entity == 'student'">Name</option>
+                            <option value="name" *ngIf="this.entity == 'company'">Name</option>
+                            <option value="country"> Country </option>
+                            <option value="city"> City </option>
+                            <option value="promotion" *ngIf="this.entity == 'student'"> Promotion </option>
+                            <option value="class" *ngIf="this.entity == 'student'"> Class </option>
+                       </select>
+                        <div class="search" *ngIf="this.property != '' && this.property != 'promotion' && this.property != 'class'">
+                            <input type="text" name="serch" class="searchTerm" placeholder="What are you looking for?" (input)="this.key=$event.target.value">
+                            <button class="searchButton" (click)="search()">Search</button>
+                        </div>
+                        <div class="search" *ngIf="this.property == 'promotion'">
+                            <mat-form-field appearance="fill" class="searchTerm">
+                                <mat-label>Promotion</mat-label>
+                                <mat-select>
+                                    <mat-option *ngFor="let year of years" (click)="this.key = year" [value]="year">
+                                        {{year}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button class="searchButton" (click)="search()">Search</button>
+                        </div>
+                        <div class="search" *ngIf="this.property == 'class'">
+                            <mat-form-field appearance="fill" class="searchTerm">
+                                <mat-label>Class</mat-label>
+                                <mat-select>
+                                    <mat-option *ngFor="let class of classes" (click)="this.key= class" [value]="class">
+                                        {{class}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button class="searchButton" (click)="search()">Search</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction:row;">
+                        <!--<button *ngIf="this.entity != ''" class="searchButton1" style="margin-left: 17px;" (click)="getAll()">Get All</button>-->
+                        <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'table' && this.entity != ''"><i class="material-icons">location_on</i></button>
+                        <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'map' && this.entity != ''"><i class="material-icons">table_rows</i></button>
+                    </div>
+                    <div class="card-body" *ngIf="this.mode == 'table'">
+                        <div class="table-responsive" *ngIf="this.entity == 'student'">
+                            <table class="table">
+                                <thead class=" text-primary" *ngIf="this.users.length != 0">
+                                    <th>
+                                        Number
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Country
+                                    </th>
+                                    <th>
+                                        City
+                                    </th>
+                                    <th>
+                                        Email address
+                                    </th>
+                                    <th>
+                                        View profile
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of users; index as i">
+                                        <td>
+                                            {{ i+1 }}
+                                        </td>
+                                        <td>
+                                            {{ user.firstname + " " + user.lastname}}
+                                        </td>
+                                        <td>
+                                            {{ user.country }}
+                                        </td>
+                                        <td>
+                                            {{ user.city }}
+                                        </td>
+                                        <td class="text-primary">
+                                            {{ user.email }}
+                                        </td>
+                                        <td>
+                                            <a (click)="viewProfileUser(user)" style="cursor: pointer;"><i class="material-icons">person</i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive" *ngIf="this.entity == 'company'">
+                            <table class="table">
+                                <thead class=" text-primary" *ngIf="this.companies.length != 0">
+                                    <th>
+                                        Number
+                                    </th>
+                                    <th>
+                                        Company name
+                                    </th>
+                                    <th>
+                                        Country
+                                    </th>
+                                    <th>
+                                        City
+                                    </th>
+                                    <th>
+                                        Email address
+                                    </th>
+                                    <th>
+                                        View profile
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let company of companies; index as i">
+                                        <td>
+                                            {{ i+1 }}
+                                        </td>
+                                        <td>
+                                            {{ company.name}}
+                                        </td>
+                                        <td>
+                                            {{ company.country }}
+                                        </td>
+                                        <td>
+                                            {{ company.city }}
+                                        </td>
+                                        <td class="text-primary">
+                                            {{ company.email }}
+                                        </td>
+                                        <td>
+                                            <a (click)="viewProfileCompany(company)" style="cursor: pointer;"><i class="material-icons">domain</i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="this.mode == 'map'">
+                        <app-map-user></app-map-user>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="popup" id="popup-1">
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="close-btn" (click)="togglePopupUser();">×</div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-profile" style="background: linear-gradient(rgb(0, 66, 189), #ffffff);">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" src="{{ this.picture }}" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category" style="font-size:18px; color:rgb(15, 15, 15);">{{ this.user.type }}</h6>
+                        <h4 class="card-title" style="font-weight: bold; color:rgb(15, 15, 15);">{{ this.user.firstname + " " + this.user.lastname }}</h4>
+                        <p class="card-description" style="font-size:18px; color:rgb(27, 27, 27);">
+                            {{ this.user.aboutme }}
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Profile details</h4>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">First name : </span><span class="contenu">{{ this.user.firstname }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">Last name : </span><span class="contenu">{{ this.user.lastname }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4" *ngIf="this.user.type == 'alumni'">
+                                <p>
+                                    <span class="titre">Work at : </span><span class="contenu">{{ this.user.workAt }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4" *ngIf="this.user.type == 'student'">
+                                <p>
+                                    <span class="titre">Class : </span><span class="contenu">{{ this.user.class }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <p>
+                                    <span class="titre">Email : </span><span class="contenu">{{ this.user.email }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">Phone : </span><span class="contenu">{{ this.user.phone }}</span>
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">LinkedIn : </span><span class="contenu">{{ this.user.linkedin }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">Country : </span><span class="contenu">{{ this.user.country }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">City : </span><span class="contenu">{{ this.user.city }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>
+                                    <span class="titre">Address : </span><span class="contenu">{{ this.user.address }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">Promotion : </span><span class="contenu">{{ this.user.promotion }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="popup" id="popup-2">
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="close-btn" (click)="togglePopupCompany();">×</div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-profile" style="background: linear-gradient(rgb(0, 66, 189), #ffffff);">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" src="{{ this.logo }}" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category" style="font-size:18px; color:rgb(15, 15, 15);">Company</h6>
+                        <h4 class="card-title" style="font-weight: bold; color:rgb(15, 15, 15);">{{ this.company.name }}</h4>
+                        <p class="card-description" style="font-size:18px; color:rgb(27, 27, 27);">
+                            {{ this.company.about }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Profile company details</h4>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p>
+                                    <span class="titre">Company name : </span><span class="contenu">{{ this.company.name }}</span>
+                                </p>
+                            </div>
+
+                            <div class="col-md-7">
+                                <p>
+                                    <span class="titre">Web site : </span><span class="contenu">{{ this.company.website }}</span>
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-7">
+                                <p>
+                                    <span class="titre">Email : </span><span class="contenu">{{ this.company.email }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-5">
+                                <p>
+                                    <span class="titre">Phone : </span><span class="contenu">{{ this.company.phone }}</span>
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">Country : </span><span class="contenu">{{ this.company.country }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <span class="titre">City : </span><span class="contenu">{{ this.company.city }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    <span class="titre">Address : </span><span class="contenu">{{ this.company.address }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
