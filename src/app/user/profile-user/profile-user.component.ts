@@ -40,7 +40,7 @@ export class ProfileUserComponent implements OnInit {
     profileData.append("image",  this.selectedFile, this.selectedFile.name);
     console.log(profileData);
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    this.http.post('http://backend-ticenit.herokuapp.com/student/upload/' + localStorage.getItem("user_id"), profileData, { headers: reqHeader }).subscribe((data : any)=>{
+    this.http.post('https://backend-ticenit.herokuapp.com/student/upload/' + localStorage.getItem("user_id"), profileData, { headers: reqHeader }).subscribe((data : any)=>{
       console.log(data);
       this.page = "profile";
       window.location.reload();
@@ -54,7 +54,7 @@ export class ProfileUserComponent implements OnInit {
   }
 
   
-  readonly url = 'http://backend-ticenit.herokuapp.com/student/';
+  readonly url = 'https://backend-ticenit.herokuapp.com/student/';
   constructor(private http : HttpClient, private profileService: ProfileService) { }
   user = new User("student");
   page = "profile";
