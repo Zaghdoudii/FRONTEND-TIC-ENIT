@@ -108,11 +108,19 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-profile" style="background: linear-gradient(rgb(0, 66, 189), #ffffff);">
-                    <div class="card-avatar">
-                        <a href="javascript:void(0)">
-                            <img class="img" src="{{ this.picture }}" />
-                        </a>
-                    </div>
+                    <form [formGroup]="form"  method="post" enctype="multipart/form-data"> 
+                        <input name="image"
+                        style="display: none;"
+                        type="file" (change)="onFileChanged($event)"
+                        accept="image/png, image/jpeg, image/jpg"
+                        #fileInput />
+                        <div class="card-avatar">
+                            <a href="javascript:void(0)">
+                                <img class="img" src="{{ this.picture }}"(click)="fileInput.click()" />
+                            </a>
+                        </div>
+                        
+                    </form>
                     <div class="card-body">
                         <input (click)="user.type = 'student';" type="radio" name="type" value="Student" style="width: 50px;" [checked]="user.type=='student'" /><span style="font-size:22px; color:rgb(25, 25, 25);"> Student </span>
                         <input (click)="user.type = 'alumni';" type="radio" name="type" value="Alumni" style="width: 50px;" [checked]="user.type=='alumni'" /><span style="font-size:22px; color:rgb(25, 25, 25);"> Alumni </span>
@@ -129,7 +137,7 @@
                             </div>
                         </div>
 
-                        <a routerLinkActive="active" class="btn btn-danger btn-round" (click)="updateProfile();">Save changes</a><br>
+                        <a id="savechanges" routerLinkActive="active" class="btn btn-danger btn-round" (click)="updateProfile();">Save changes</a><br>
                         <a class="btn btn-default btn-round" (click)="cancel();">Cancel</a>
                     </div>
                 </div>
@@ -226,5 +234,12 @@
             </div>
 
         </div>
+    </div>
+</div>
+
+<div class="popup" id="popup-1">
+    <div class="overlay"></div>
+        <div class="content" style="max-width: 520px;">
+        <img src="../../../assets/img/loading.jpg" alt="" srcset="" style="width: 30%;">
     </div>
 </div>

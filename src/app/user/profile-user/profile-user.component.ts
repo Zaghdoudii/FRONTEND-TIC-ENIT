@@ -1,6 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { User } from '../models/user.model';
+import { ProfileService } from '../services/profile.service';
 
 
 @Component({
@@ -9,9 +11,51 @@ import { User } from '../models/user.model';
   styleUrls: ['./profile-user.component.css']
 })
 export class ProfileUserComponent implements OnInit {
+  selectedFile : File;
+  form: FormGroup;
+  imageData: string;
+  modifPic = false;
 
+  onFileChanged(event) {
+    const file = (event.target).files[0];
+    this.selectedFile = file;
+    console.log(this.selectedFile);
+    this.form.patchValue({ image: file });
+    const allowedMimeTypes = ["image/png", "image/jpeg", "image/jpg"];
+    if (file && allowedMimeTypes.includes(file.type)) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageData = reader.result as string;
+        
+      };
+      reader.readAsDataURL(file);
+      
+    }
+    this.modifPic = true;
+  }
+
+  updateProfilePicture(){
+    var profileData = new FormData();
+    profileData.append("name",this.form.value.name);
+    profileData.append("image",  this.selectedFile, this.selectedFile.name);
+    console.log(profileData);
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
+    this.http.post('http://backend-ticenit.herokuapp.com/student/upload/' + localStorage.getItem("user_id"), profileData, { headers: reqHeader }).subscribe((data : any)=>{
+      console.log(data);
+      this.page = "profile";
+      window.location.reload();
+   },
+   (err : HttpErrorResponse)=>{
+    console.log(err);
+    this.page = "profile";
+   });
+    this.form.reset();
+    this.imageData = null;
+  }
+
+  
   readonly url = 'http://backend-ticenit.herokuapp.com/student/';
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private profileService: ProfileService) { }
   user = new User("student");
   page = "profile";
   picture = "../../../assets/img/profil.png";
@@ -38,6 +82,10 @@ export class ProfileUserComponent implements OnInit {
     "3rd Tel 3"
   ];
   ngOnInit() {
+    this.form = new FormGroup({
+      name: new FormControl(null),
+      image: new FormControl(null),
+    });
     let i = 0;
     for(i=2000; i<this.date.getFullYear() + 5;i++){
       this.years.push(i+"");
@@ -68,14 +116,24 @@ export class ProfileUserComponent implements OnInit {
    });
     
   }
-
+  public togglePopup(){
+    document.getElementById("popup-1").classList.toggle("active");
+  }
   updateProfile(){
     console.log(this.user);
+    this.togglePopup();
+    document.getElementById("savechanges").setAttribute("disabled","true");
+    document.getElementById("savechanges").setAttribute("style","cursor: not-allowed! important;");
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
     this.http.patch("https://backend-ticenit.herokuapp.com/student/"+localStorage.getItem("user_id"),this.user, { headers: reqHeader }).subscribe((data : any)=>{
       console.log(data);
-      
-      this.page = "profile";
+      if(this.modifPic){
+        this.updateProfilePicture();
+      }else{
+        this.page = "profile";
+        this.togglePopup();
+        //window.location.reload();
+      }
    },
    (err : HttpErrorResponse)=>{
     console.log(err);
