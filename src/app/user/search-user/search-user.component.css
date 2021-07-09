@@ -154,6 +154,25 @@ select {
     display: none;
 }
 
+@media screen and (max-width : 750px) {
+    .popup .content {
+        position: fixed;
+        margin-top: 80px;
+        top: calc(50% - 80px);
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        background: RGB(238, 238, 238);
+        width: 100% !important;
+        /*height: auto;*/
+        z-index: 15;
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+        font-family: "Open Sans", sans-serif;
+        border-radius: 4px;
+    }
+    
+}
 .popup .content {
     position: fixed;
     margin-top: 80px;
@@ -165,7 +184,7 @@ select {
     /*height: auto;*/
     z-index: 15;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
     border-radius: 4px;
@@ -211,3 +230,4 @@ select {
 div.row>* {
     text-align: left;
 }
+

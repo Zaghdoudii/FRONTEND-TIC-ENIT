@@ -51,25 +51,55 @@ export class SearchUserComponent implements OnInit {
     }
   }
   
-  
+  isMobileMenu() {
+    if ($(window).width() > 991) {
+        return false;
+    }
+    return true;
+};
 
+public togglePopupLoading(){
+  document.getElementById("popup-99").classList.toggle("active");
+}
+noResult = false;
   search(){
+    this.togglePopupLoading();
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
     this.http.get("https://backend-ticenit.herokuapp.com/"+ this.entity +"/search?property="+this.property+"&key="+this.key, { headers: reqHeader }).subscribe((data : any)=>{
     //this.http.get("https://backend-ticenit.herokuapp.com/student/location?property=firstname&key=dabbabi", { headers: reqHeader }).subscribe((data : any)=>{
       console.log(data);
+      this.togglePopupLoading();
       if(this.entity == "student"){
         this.users = data;
+        if(this.users.length == 0){
+          this.noResult = true;
+        }else{
+          this.noResult = false;
+        }
       }else{
         this.companies = data;
+        if(this.companies.length == 0){
+          this.noResult = true;
+        }else{
+          this.noResult = false;
+        }
       }
    },
    (err : HttpErrorResponse)=>{
     console.log(err);
+    this.togglePopupLoading();
+    if(this.entity == "student"){
+      this.users = [];
+      this.noResult = true;
+    }else{
+      this.companies = [];
+      this.noResult = true;
+    }
    });
 
   }
   getAll(){
+    this.togglePopupLoading();
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
     var entite = "";
     if(this.entity == "student"){
@@ -79,6 +109,7 @@ export class SearchUserComponent implements OnInit {
     }
     this.http.get("https://backend-ticenit.herokuapp.com/student/" + entite , { headers: reqHeader }).subscribe((data : any)=>{
       console.log(data);
+      this.togglePopupLoading();
       if(this.entity == "student"){
         this.users = data;
       }else if(this.entity == "company"){
@@ -88,7 +119,7 @@ export class SearchUserComponent implements OnInit {
    },
    (err : HttpErrorResponse)=>{
     console.log(err);
-    
+    this.togglePopupLoading();
    });
   }
 

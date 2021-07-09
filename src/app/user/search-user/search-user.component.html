@@ -55,10 +55,14 @@
                         <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'table' && this.entity != ''"><i class="material-icons">location_on</i></button>
                         <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'map' && this.entity != ''"><i class="material-icons">table_rows</i></button>
                     </div>
+
+                    <div class="card-body" *ngIf="this.noResult"  style="text-align: center;">
+                        <h2>No results !</h2>
+                    </div>
                     <div class="card-body" *ngIf="this.mode == 'table'">
                         <div class="table-responsive" *ngIf="this.entity == 'student'">
                             <table class="table">
-                                <thead class=" text-primary" *ngIf="this.users.length != 0">
+                                <thead class=" text-primary" *ngIf="this.users.length != 0 && !this.isMobileMenu()">
                                     <th>
                                         Number
                                     </th>
@@ -80,19 +84,19 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let user of users; index as i">
-                                        <td>
+                                        <td *ngIf="!this.isMobileMenu()">
                                             {{ i+1 }}
                                         </td>
                                         <td>
                                             {{ user.firstname + " " + user.lastname}}
                                         </td>
-                                        <td>
+                                        <td *ngIf="!this.isMobileMenu()">
                                             {{ user.country }}
                                         </td>
-                                        <td>
+                                        <td *ngIf="!this.isMobileMenu()">
                                             {{ user.city }}
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="text-primary" *ngIf="!this.isMobileMenu()">
                                             {{ user.email }}
                                         </td>
                                         <td>
@@ -105,19 +109,19 @@
                         <div class="table-responsive" *ngIf="this.entity == 'company'">
                             <table class="table">
                                 <thead class=" text-primary" *ngIf="this.companies.length != 0">
-                                    <th>
+                                    <th *ngIf="!this.isMobileMenu()">
                                         Number
                                     </th>
                                     <th>
                                         Company name
                                     </th>
-                                    <th>
+                                    <th *ngIf="!this.isMobileMenu()">
                                         Country
                                     </th>
-                                    <th>
+                                    <th *ngIf="!this.isMobileMenu()">
                                         City
                                     </th>
-                                    <th>
+                                    <th *ngIf="!this.isMobileMenu()">
                                         Email address
                                     </th>
                                     <th>
@@ -126,19 +130,19 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let company of companies; index as i">
-                                        <td>
+                                        <td *ngIf="!this.isMobileMenu()">
                                             {{ i+1 }}
                                         </td>
                                         <td>
                                             {{ company.name}}
                                         </td>
-                                        <td>
+                                        <td *ngIf="!this.isMobileMenu()">
                                             {{ company.country }}
                                         </td>
-                                        <td>
+                                        <td *ngIf="!this.isMobileMenu()">
                                             {{ company.city }}
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="text-primary" *ngIf="!this.isMobileMenu()">
                                             {{ company.email }}
                                         </td>
                                         <td>
@@ -191,69 +195,60 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <p>
-                                    <span class="titre">First name : </span><span class="contenu">{{ this.user.firstname }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>
-                                    <span class="titre">Last name : </span><span class="contenu">{{ this.user.lastname }}</span>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">email</i><span class="contenu">{{ this.user.email }}</span>
                                 </p>
                             </div>
                             <div class="col-md-4" *ngIf="this.user.type == 'alumni'">
                                 <p>
-                                    <span class="titre">Work at : </span><span class="contenu">{{ this.user.workAt }}</span>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">work</i><span class="contenu">{{ this.user.workAt }}</span>
                                 </p>
                             </div>
                             <div class="col-md-4" *ngIf="this.user.type == 'student'">
                                 <p>
-                                    <span class="titre">Class : </span><span class="contenu">{{ this.user.class }}</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-8">
-                                <p>
-                                    <span class="titre">Email : </span><span class="contenu">{{ this.user.email }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>
-                                    <span class="titre">Phone : </span><span class="contenu">{{ this.user.phone }}</span>
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p>
-                                    <span class="titre">LinkedIn : </span><span class="contenu">{{ this.user.linkedin }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>
-                                    <span class="titre">Country : </span><span class="contenu">{{ this.user.country }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>
-                                    <span class="titre">City : </span><span class="contenu">{{ this.user.city }}</span>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">school</i><span class="contenu">{{ this.user.class }}</span>
                                 </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-8">
                                 <p>
-                                    <span class="titre">Address : </span><span class="contenu">{{ this.user.address }}</span>
+                                    <img src="../../../assets/img/linkedin.png" style="width: 23px; margin-right: 10px;"><span class="contenu">{{ this.user.linkedin }}</span>
+                                </p>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <p>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">phone</i><span class="contenu">{{ this.user.phone }}</span>
+                                </p>
+                            </div>
+
+                        </div>
+                        <!--<div class="row">
+                            <div class="col-md-4">
+                                <p>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">history_edu</i><span class="contenu">{{ this.user.promotion }}</span>
                                 </p>
                             </div>
                             <div class="col-md-4">
                                 <p>
-                                    <span class="titre">Promotion : </span><span class="contenu">{{ this.user.promotion }}</span>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">emoji_flags</i><span class="contenu">{{ this.user.country }}</span>
                                 </p>
                             </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">holiday_village</i><span class="contenu">{{ this.user.city }}</span>
+                                </p>
+                            </div>
+                        </div>-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">location_on</i><span class="contenu">{{ this.user.address }}</span>
+                                </p>
+                            </div>
+                            
                         </div>
 
 
@@ -355,5 +350,12 @@
             </div>
 
         </div>
+    </div>
+</div>
+
+<div class="popup" id="popup-99" style="background: rgba(238, 238, 238, 0);">
+    <div class="overlay"></div>
+        <div class="content" style="max-width: 520px;background: rgba(238, 238, 238, 0);">
+        <img src="../../../assets/img/loading.jpg" alt="" srcset="" style="width: 30%;">
     </div>
 </div>

@@ -9,10 +9,9 @@
     font-size: 15px;
     font-weight: bold;
 }
-
 .popup {
     position: fixed;
-    width: 40%µ;
+    width: 100vw;
     height: 100vh;
     z-index: 10000;
     display: block;
@@ -22,9 +21,9 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    width: 40%µ;
+    width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
     z-index: 14;
     display: none;
 }
@@ -35,12 +34,12 @@
     top: calc(50% - 80px);
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    background: rgba(238, 238, 238, 0);
-    width: 40%;
+    background: RGB(238, 238, 238);
+    width: 80%;
     /*height: auto;*/
     z-index: 15;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
     border-radius: 4px;
@@ -53,8 +52,8 @@
     top: 20px;
     width: 30px;
     height: 30px;
-    background: rgba(34, 34, 34, 0);
-    color: rgba(255, 255, 255, 0);
+    background: #222;
+    color: #fff;
     font-size: 25px;
     font-weight: 600;
     line-height: 30px;
@@ -70,3 +69,4 @@
     transition: all 300ms ease-in-out;
     transform: translate(-50%, -50%) scale(1);
 }
+
