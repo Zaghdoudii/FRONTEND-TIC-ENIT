@@ -28,6 +28,7 @@ export class LoginUserComponent implements OnInit {
     this.loginUserService.loginUser(this.user).subscribe((data : any)=>{
       localStorage.setItem('userToken',data.accessToken);
       localStorage.setItem('user_id',data.id);
+      localStorage.setItem('name',data.name);
       //window.location.replace('/user/home');
       this.router.navigate(['/user/home']);
    },

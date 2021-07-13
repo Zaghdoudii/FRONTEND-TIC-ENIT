@@ -24,6 +24,7 @@ export class LoginAdminComponent implements OnInit {
     this.loginAdminService.loginUser(this.admin).subscribe((data : any)=>{
       localStorage.setItem('adminToken',data.accessToken);
       localStorage.setItem('admin_id',data.id);
+      localStorage.setItem('name',data.name);
       this.router.navigate(['/admin/home']);
    },
    (err : HttpErrorResponse)=>{

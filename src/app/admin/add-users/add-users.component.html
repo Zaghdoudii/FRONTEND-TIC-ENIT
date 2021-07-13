@@ -10,9 +10,9 @@
                         <form>
                             <div class="row">
                                 <input type="file" id="excel" style="display: none;" (change)="onFileSelected($event)" #fileInput accept=".xlsx, .xls, .xlsm, .xlsb, .xltx, .xltm, .xlt, .xml, .xlam, .xla, .xlw, .xlr, .ods" multiple="oui">
-                                <button mat-raised-button type="button" class="btn btn-danger" style="margin-left:7px;cursor:pointer;" (click)="fileInput.click()">Add Excel file<i class="material-icons" style="margin-left: 7px;margin-right:auto;">add</i></button><br><br><br>
-                                <button mat-raised-button type="button" class="btn btn-danger" style="margin-left:7px;cursor:pointer;" (click)="togglePopup1();">Add student manually<i class="material-icons" style="margin-left: 7px;margin-right:auto;">add</i></button><br><br><br>
-                                <button mat-raised-button type="button" class="btn btn-danger" style="margin-left:7px;cursor:pointer;" (click)="togglePopup2();">Add company manually<i class="material-icons" style="margin-left: 7px;margin-right:auto;">add</i></button><br><br><br>
+                                <button mat-raised-button type="button" class="btn btn-danger" style="margin-left:7px;cursor:pointer;" (click)="fileInput.click()">Add Excel file<i class="material-icons" style="margin-left: 7px;margin-right:auto;">add</i></button>
+                                <button mat-raised-button type="button" class="btn btn-danger" style="margin-left:7px;cursor:pointer;" (click)="togglePopup1();">Add student manually<i class="material-icons" style="margin-left: 7px;margin-right:auto;">add</i></button>
+                                <button mat-raised-button type="button" class="btn btn-danger" style="margin-left:7px;cursor:pointer;" (click)="togglePopup2();">Add company manually<i class="material-icons" style="margin-left: 7px;margin-right:auto;">add</i></button>
                                 
                             </div>
                             <hr>

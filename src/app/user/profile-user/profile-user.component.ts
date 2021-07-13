@@ -61,6 +61,10 @@ export class ProfileUserComponent implements OnInit {
   picture = "../../../assets/img/profil.png";
   date = new Date();
   years = [];
+  countries = [];
+  cities = [];
+  
+
   classes = [
     "1st CS 1",
     "1st CS 2",
@@ -82,6 +86,7 @@ export class ProfileUserComponent implements OnInit {
     "3rd Tel 3"
   ];
   ngOnInit() {
+    
     this.form = new FormGroup({
       name: new FormControl(null),
       image: new FormControl(null),
@@ -114,7 +119,22 @@ export class ProfileUserComponent implements OnInit {
    (err : HttpErrorResponse)=>{
      
    });
-    
+   this.http.get('assets/json/countries.json').subscribe((data : any )=> {
+     data.countries.forEach(element => {
+       this.countries.push(element.country);
+     });
+  });
+  console.log(this.countries);
+  }
+  public setCities(country : string){
+    this.http.get('assets/json/countries.json').subscribe((data : any )=> {
+      data.countries.forEach(element => {
+        if(element.country == country){
+          this.cities = element.states;
+          return;
+        }
+      });
+   });
   }
   public togglePopup(){
     document.getElementById("popup-1").classList.toggle("active");

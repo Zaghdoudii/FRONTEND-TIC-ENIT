@@ -18,6 +18,8 @@ import { EditProfileUserComponent } from './edit-profile-user/edit-profile-user.
 import { SearchUserComponent } from './search-user/search-user.component';
 import { HomeUserComponent } from './home-user/home-user.component';
 import { MapUserComponent } from './map-user/map-user.component';
+import { DocumentsComponent } from './documents/documents.component';
+import { ProgressBarModule } from 'angular-progress-bar';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { MapUserComponent } from './map-user/map-user.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    UserComponentsModule
+    UserComponentsModule,
+    ProgressBarModule
   ],
   declarations: [
     HomeUserComponent,
@@ -40,6 +43,7 @@ import { MapUserComponent } from './map-user/map-user.component';
     SearchUserComponent,
     EditProfileUserComponent,
     MapUserComponent,
+    DocumentsComponent,
   ],
   providers: [IsUserGuard],
 })

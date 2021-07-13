@@ -22,10 +22,11 @@ export class AdminSidebarComponent implements OnInit {
   ngOnInit() {
     ROUTES = [
       { path: '/admin/home', title: 'Home',  icon: 'home', class: '' },
+      { path: '/admin/documents', title: 'Add documents',  icon:'post_add', class: '' },
       { path: '/admin/add', title: 'Add users',  icon: 'group_add', class: '' },
       { path: '/admin/send', title: 'Send Email',  icon:'send', class: '' },
       { path: '/admin/search', title: 'Search',  icon:'search', class: '' },
-      //{ path: '/admin/profile', title: 'Profile',  icon:'person', class: '' },
+      
     ];
     
     this.menuItems = ROUTES.filter(menuItem => menuItem);

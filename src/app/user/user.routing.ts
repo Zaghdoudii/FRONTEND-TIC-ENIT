@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { DocumentsComponent } from './documents/documents.component';
 import { HomeUserComponent } from './home-user/home-user.component';
 //import { MapUserComponent } from './map-user/map-user.component';
 import { ProfileUserComponent } from './profile-user/profile-user.component';
@@ -15,7 +16,7 @@ export const UserRoutes: Routes = [
   { path: 'home',               component: HomeUserComponent },
   { path: 'profile',            component: ProfileUserComponent },
   { path: 'search',             component: SearchUserComponent },
-  //{ path: 'maps',               component: MapUserComponent },
+  { path: 'documents',          component: DocumentsComponent },
   {
     path: '**',
     redirectTo: 'home',

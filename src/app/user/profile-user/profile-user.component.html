@@ -160,7 +160,7 @@
                             <div class="col-md-4" *ngIf="this.user.type == 'student'">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Class</mat-label>
-                                    <mat-select>
+                                    <mat-select [(value)]="this.user.class">
                                         <mat-option *ngFor="let class of classes" (click)="user.class= class" [value]="class">
                                             {{class}}
                                         </mat-option>
@@ -189,13 +189,23 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4">
-                                <mat-form-field class="example-full-width">
-                                    <input [value]="this.user.country" matInput placeholder="Country" type="text" (input)="user.country= $event.target.value">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select [(value)]="this.user.country">
+                                        <mat-option *ngFor="let country of countries" (click)="user.country= country; this.setCities(country)" [value]="country">
+                                            {{country}}
+                                        </mat-option>
+                                    </mat-select>
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4">
-                                <mat-form-field class="example-full-width">
-                                    <input [value]="this.user.city" matInput placeholder="City" type="text" (input)="user.city = $event.target.value" required>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>City</mat-label>
+                                    <mat-select [(value)]="this.user.city">
+                                        <mat-option *ngFor="let city of cities" (click)="user.city= city" [value]="city">
+                                            {{city}}
+                                        </mat-option>
+                                    </mat-select>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -208,7 +218,7 @@
                             <div class="col-md-4">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Promotion</mat-label>
-                                    <mat-select>
+                                    <mat-select [(value)]="this.user.promotion">
                                         <mat-option *ngFor="let year of years" (click)="user.promotion= year" [value]="year">
                                             {{year}}
                                         </mat-option>

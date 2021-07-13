@@ -32,6 +32,7 @@
     "@angular/router": "10.1.4",
     "ajv": "6.12.5",
     "ajv-formats": "^2.1.0",
+    "angular-progress-bar": "^1.0.11",
     "arrive": "2.4.1",
     "bootstrap": "4.5.2",
     "bootstrap-material-design": "4.1.3",

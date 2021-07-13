@@ -16,6 +16,7 @@ import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { SendEmailComponent } from './send-email/send-email.component';
 import { AddUsersComponent } from './add-users/add-users.component';
 import { MapAdminComponent } from './map-admin/map-admin.component';
+import { DocumentsComponent } from './documents/documents.component';
 
 
 
@@ -39,6 +40,7 @@ import { MapAdminComponent } from './map-admin/map-admin.component';
   SendEmailComponent,
   AddUsersComponent,
   MapAdminComponent,
+  DocumentsComponent,
   ],
   providers: [],
 })
