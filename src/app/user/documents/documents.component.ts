@@ -65,7 +65,7 @@ export class DocumentsComponent implements OnInit {
     this.documents = [];
     this.emp = emp;
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    this.http.post("http://backend-ticenit.herokuapp.com/student/documents",{emp : emp} ,{ headers: reqHeader }).subscribe((data : any)=>{
+    this.http.post("https://backend-ticenit.herokuapp.com/student/documents",{emp : emp} ,{ headers: reqHeader }).subscribe((data : any)=>{
      console.log(data);
       this.documents = data;
       if(this.documents.length == 0){
@@ -227,7 +227,7 @@ export class DocumentsComponent implements OnInit {
       this.documents = [];
       this.emp = '/';
       var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-      this.http.post("http://backend-ticenit.herokuapp.com/student/searchdoc",{title : this.title} ,{ headers: reqHeader }).subscribe((data : any)=>{
+      this.http.post("https://backend-ticenit.herokuapp.com/student/searchdoc",{title : this.title} ,{ headers: reqHeader }).subscribe((data : any)=>{
        console.log(data);
         this.documents = data;
         if(this.documents.length == 0){
