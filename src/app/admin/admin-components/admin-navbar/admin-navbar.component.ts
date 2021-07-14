@@ -2,12 +2,14 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../admin-sidebar/admin-sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-admin-navbar',
   templateUrl: './admin-navbar.component.html',
   styleUrls: ['./admin-navbar.component.css']
 })
 export class AdminNavbarComponent implements OnInit {
+    nb = 0;
     private listTitles: any[];
     menuItems: any[];
     location: Location;
@@ -15,7 +17,7 @@ export class AdminNavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,  private element: ElementRef, private router: Router, private http : HttpClient) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -33,8 +35,22 @@ export class AdminNavbarComponent implements OnInit {
          }
      });
      this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.getNbMessages();
     }
 
+    
+    getNbMessages(){
+        var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+        this.http.get("https://backend-ticenit.herokuapp.com/admin/nbmessage",{ headers: reqHeader }).subscribe((data : any)=>{
+         console.log(data);
+          this.nb = data.nb;
+       },
+       (err : HttpErrorResponse)=>{
+        console.log(err);
+       });
+    }
+
+      
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];

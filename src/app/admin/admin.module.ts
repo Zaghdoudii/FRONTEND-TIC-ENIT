@@ -17,6 +17,7 @@ import { SendEmailComponent } from './send-email/send-email.component';
 import { AddUsersComponent } from './add-users/add-users.component';
 import { MapAdminComponent } from './map-admin/map-admin.component';
 import { DocumentsComponent } from './documents/documents.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 
@@ -41,6 +42,7 @@ import { DocumentsComponent } from './documents/documents.component';
   AddUsersComponent,
   MapAdminComponent,
   DocumentsComponent,
+  MessagesComponent,
   ],
   providers: [],
 })
