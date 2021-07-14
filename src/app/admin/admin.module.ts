@@ -18,6 +18,7 @@ import { AddUsersComponent } from './add-users/add-users.component';
 import { MapAdminComponent } from './map-admin/map-admin.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ProgressBarModule } from 'angular-progress-bar';
 
 
 
@@ -33,7 +34,8 @@ import { MessagesComponent } from './messages/messages.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    AdminComponentsModule
+    AdminComponentsModule,
+    ProgressBarModule
   ],
   declarations: [
   SearchAdminComponent,

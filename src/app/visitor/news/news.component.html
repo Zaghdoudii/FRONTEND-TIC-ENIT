@@ -23,7 +23,46 @@
 <!-- Features section  container px-5 my-5  row gx-5   col-lg-4 -->
 <section class="py-5 border-bottom" id="features">
     <div class="container">
-        <div class="row">
+
+
+        <div class="row" *ngFor="let n of news">
+            <div class="card mb-5 mb-xl-0">
+                <div class="card-header card-header-danger" style="text-align: left;">
+                    <h4 ><b>{{ n.title }}</b></h4>
+                    <a style="font-size: 16px;" ><i class="material-icons" style="margin-right: 6px;">today</i>{{ n.date }}</a>
+                </div>
+                <div class="card-body p-5">
+                    
+                    <div class="row" *ngIf="n.picture != ''">
+                        
+                        <div class="col-md-12" style="text-align: center;">
+                            <img src="{{ n.picture }}" alt="" srcset="" style="cursor: pointer;height: auto; max-width: 260px;margin-top: 15px;">
+                        </div>
+                        
+                    </div>
+                   
+                    <div class="row">
+                        <div class="mb-2">
+                            <i class=" text-primary"></i>
+                            <a>{{ n.content }}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-1" *ngFor="let doc of n.docs">
+                            <div class="row">
+                                <a href="{{ doc.link }}"><img src="../../../assets/img/{{ doc.name.split('.')[doc.name.split('.').length - 1] }}.png" alt="" srcset="" style="width: 80px; max-width: 80%;"><span style="color: black; font-weight: bold;">{{ doc.name }}</span></a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="row">
             <div class="card mb-5 mb-xl-0">
                 <div class="card-header card-header-danger" style="text-align: left;">
                     <h4 ><b>Programme de bourse « Études combinées et séjours pratiques pour des ingénieurs des pays en voie de développement » (KOSPIE)</b></h4>
@@ -83,7 +122,7 @@
                     
                 </div>
             </div>
-        </div>
+        </div>-->
         
     </div>
 </section>

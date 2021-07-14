@@ -11,7 +11,9 @@ export class NewsComponent implements OnInit {
   constructor(private http : HttpClient) { }
 
   ngOnInit(): void {
+    this.getNews();
   }
+  news = [];
   page = "send";
   message = {
     name : "",
@@ -62,5 +64,15 @@ export class NewsComponent implements OnInit {
      });  
     }
 
+  }
+
+  getNews(){
+    this.http.get("https://backend-ticenit.herokuapp.com/admin/news").subscribe((data : any) => {
+      this.news = data;
+      console.log(this.news);
+    },
+    (err : HttpErrorResponse)=>{
+    console.log(err);
+    });
   }
 }

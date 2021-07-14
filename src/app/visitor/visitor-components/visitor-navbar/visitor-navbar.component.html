@@ -14,7 +14,7 @@
         
             <ul class="navbar-nav" style="display: flex; flex-direction: row;">
                 <li class="nav-item" *ngFor="let menuItem of menuItems">
-                    <a class="nav-link" href="{{ menuItem.path }}">
+                    <a class="nav-link" [routerLink]="[menuItem.path]">
                         <i class="material-icons">{{menuItem.icon}}</i>
                         
                     </a>
