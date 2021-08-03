@@ -17,7 +17,7 @@ export class ProfileCompanyComponent implements OnInit {
   picture = "./assets/img/companyprofil.png";
   ngOnInit() {
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("companyToken")});
-    this.http.get(this.url+localStorage.getItem("company_id"), { headers: reqHeader }).subscribe((data : any)=>{
+    this.http.get('https://backend-ticenit.herokuapp.com/company/info?id='+localStorage.getItem("company_id"), { headers: reqHeader }).subscribe((data : any)=>{
       console.log(data);
       this.company.name =data.name;
       this.company.email =data.email;
@@ -41,7 +41,7 @@ export class ProfileCompanyComponent implements OnInit {
   updateProfile(){
     console.log(this.company);
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("companyToken")});
-    this.http.patch(this.url+localStorage.getItem("company_id"),this.company, { headers: reqHeader }).subscribe((data : any)=>{
+    this.http.patch('https://backend-ticenit.herokuapp.com/company/update?id='+localStorage.getItem("company_id"),this.company, { headers: reqHeader }).subscribe((data : any)=>{
       console.log(data);
       
       this.page = "profile";

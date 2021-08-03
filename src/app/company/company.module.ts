@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyRoutes } from './company.routing';
 import { CompanyComponentsModule } from './company-components/company-components.module';
 import { EditProfileCompanyComponent } from './edit-profile-company/edit-profile-company.component';
+import { ProgressBarModule } from 'angular-progress-bar';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { EditProfileCompanyComponent } from './edit-profile-company/edit-profile
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    CompanyComponentsModule
+    CompanyComponentsModule,
+    ProgressBarModule
   ],
   declarations: [
     HomeCompanyComponent,

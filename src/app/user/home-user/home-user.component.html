@@ -1,1 +1,65 @@
 
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            
+            
+
+        <div class="row" *ngFor="let n of offers; index as i">
+            <div class="card mb-5 mb-xl-0 card-profile">
+                <div class="card-header card-header-success" style="text-align: left;">
+                    
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="card-avatar" style="width: 85px;">
+                                <a href="javascript:void(0)">
+                                    <img class="img" src="../../../assets/img/companyprofil.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding: 0px 0px; text-align: center;">
+                            <h4 style="font-weight:bold;">
+                                {{ this.companiesInfo[i].name }}
+                            </h4>
+                        </div>
+                        <div class="col-md-4" style="text-align: center;">
+                            <a style="font-size: 16px;" ><i class="material-icons">star</i><i class="material-icons">star</i><span style="margin-left: 10px; margin-right: 10px; font-weight: bold;">{{ n.type }}</span><i class="material-icons">star</i><i class="material-icons">star</i></a>
+                        </div>
+                        <div class="col-md-4">
+                            
+                        </div>
+                    </div><br>
+                    
+                    <a style="font-size: 16px;" ><i class="material-icons" style="margin-right: 6px;">today</i>{{ n.start }} &#x2794; {{ n.end }}</a>
+                </div>
+                <div class="card-body p-5 actions">
+                    <div class="row" style="direction: rtl;">
+                        <i style="cursor: pointer;" class="material-icons" (click)="deleteOffer(n.id)">delete_outline</i>
+                        <i style="cursor: pointer;" class="material-icons" (click)="this.update(n);this.togglePopup();">edit</i>
+                    </div>
+                    <div class="row">
+                        <h4 ><b>{{ n.title }}</b></h4>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="mb-2">
+                            <i class=" text-primary"></i>
+                            <a>{{ n.content }}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-1" *ngFor="let doc of n.docs">
+                            <div class="row">
+                                <a href="{{ doc.link }}"><img src="../../../assets/img/{{ doc.name.split('.')[doc.name.split('.').length - 1] }}.png" alt="" srcset="" style="width: 80px; max-width: 80%;"><span style="color: black; font-weight: bold;">{{ doc.name }}</span></a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div><br><br>
+        </div><br><br>
+    </div>
+</div>

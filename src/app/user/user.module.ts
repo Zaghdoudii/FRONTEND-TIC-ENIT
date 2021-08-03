@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserComponentsModule } from './user-components/user-components.module';
-import { EditProfileUserComponent } from './edit-profile-user/edit-profile-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { HomeUserComponent } from './home-user/home-user.component';
 import { MapUserComponent } from './map-user/map-user.component';
@@ -41,7 +40,7 @@ import { ProgressBarModule } from 'angular-progress-bar';
     HomeUserComponent,
     ProfileUserComponent,
     SearchUserComponent,
-    EditProfileUserComponent,
+    
     MapUserComponent,
     DocumentsComponent,
   ],
