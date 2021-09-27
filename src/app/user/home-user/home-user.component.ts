@@ -30,6 +30,14 @@ export class HomeUserComponent implements OnInit {
     });
   }
 
+  getPictureCompany(i: number){
+    let url = "../../../assets/img/companyprofil.png";
+    if(this.companiesInfo[i].logo != undefined && this.companiesInfo[i].logo != ""){
+      url = this.companiesInfo[i].logo;
+    }
+    return url;
+  }
+
   getCompaniesInfo(){
     this.offers1.forEach(elt => {
       this.companiesId.push(elt.companyid);

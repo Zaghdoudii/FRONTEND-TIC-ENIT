@@ -1,3 +1,17 @@
+@media screen and (max-width: 900px) {
+    #nameComp{
+        text-align: center;
+    }
+    
+}
+
+@media screen and (min-width: 900px) {
+    #nameComp{
+        text-align: left;
+    }
+    
+}
+
 select {
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -117,9 +131,9 @@ select {
     padding-top: 5px;
     
     border: none;
-    background: linear-gradient(90deg, rgb(1, 90, 255) 4%, rgb(0, 27, 150) 94%);
+    background: none;
     text-align: center;
-    color: #fff;
+    color: rgb(0, 0, 0);
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;

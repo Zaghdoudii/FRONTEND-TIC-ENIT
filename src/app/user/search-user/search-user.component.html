@@ -9,19 +9,22 @@
                             <option value="" disabled selected>What are you looking for ?</option>
                             <option value="student" [selected]="this.entity == 'student'">Students</option>
                             <option value="company" [selected]="this.entity == 'company'"> Companies </option>
-                            <option value="student" [selected]="this.entity == 'pfa'">PFA</option>
-                            <option value="company" [selected]="this.entity == 'pfe'"> PFE </option>
-                            <option value="student" [selected]="this.entity == 'internship'">Internships</option>
-                            <option value="company" [selected]="this.entity == 'job'"> Jobs </option>
+                            <option value="offer" [selected]="this.entity == 'offer'"> Offers </option>
+                            
                        </select>
                         <select *ngIf="this.entity != ''" class="search_config" name="search" id="s" (input)="this.property=$event.target.value">
-                            <option value="" disabled selected>Search with...</option>
+                            <option value="" disabled selected *ngIf="this.entity == 'student' || this.entity == 'company' ">Search with...</option>
+                            <option value="" disabled selected *ngIf="this.entity == 'offer'">Search in...</option>
                             <option value="firstname" *ngIf="this.entity == 'student'">Name</option>
                             <option value="name" *ngIf="this.entity == 'company'">Name</option>
-                            <option value="country"> Country </option>
-                            <option value="city"> City </option>
+                            <option value="country" *ngIf="this.entity == 'student' || this.entity == 'company' "> Country </option>
+                            <option value="city"*ngIf="this.entity == 'student' || this.entity == 'company' "> City </option>
                             <option value="promotion" *ngIf="this.entity == 'student'"> Promotion </option>
                             <option value="class" *ngIf="this.entity == 'student'"> Class </option>
+                            <option value="PFA" *ngIf="this.entity == 'offer'">PFA</option>
+                            <option value="PFE" *ngIf="this.entity == 'offer'"> PFE </option>
+                            <option value="Intership" *ngIf="this.entity == 'offer'">Internships</option>
+                            <option value="Job" *ngIf="this.entity == 'offer'"> Jobs </option>
                        </select>
                         <div class="search" *ngIf="this.property != '' && this.property != 'promotion' && this.property != 'class'">
                             <input type="text" name="serch" class="searchTerm" placeholder="What are you looking for?" (input)="this.key=$event.target.value">
@@ -52,8 +55,8 @@
                     </div>
                     <div style="display: flex; flex-direction:row;">
                         <!--<button *ngIf="this.entity != ''" class="searchButton1" style="margin-left: 17px;" (click)="getAll()">Get All</button>-->
-                        <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'table' && this.entity != ''"><i class="material-icons">location_on</i></button>
-                        <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'map' && this.entity != ''"><i class="material-icons">table_rows</i></button>
+                        <a class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'table' &&( (this.entity == 'company' && this.companies.length != 0) || (this.entity == 'student' && this.users.length != 0))"><i class="material-icons">location_on</i></a>
+                        <a class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'map' &&( (this.entity == 'company' && this.companies.length != 0) || (this.entity == 'student' && this.users.length != 0))"><i class="material-icons">table_rows</i></a>
                     </div>
 
                     <div class="card-body" *ngIf="this.noResult"  style="text-align: center;">
@@ -61,97 +64,245 @@
                     </div>
                     <div class="card-body" *ngIf="this.mode == 'table'">
                         <div class="table-responsive" *ngIf="this.entity == 'student'">
-                            <table class="table">
-                                <thead class=" text-primary" *ngIf="this.users.length != 0 && !this.isMobileMenu()">
-                                    <th>
-                                        Number
-                                    </th>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Country
-                                    </th>
-                                    <th>
-                                        City
-                                    </th>
-                                    <th>
-                                        Email address
-                                    </th>
-                                    <th>
-                                        View profile
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let user of users; index as i">
-                                        <td *ngIf="!this.isMobileMenu()">
-                                            {{ i+1 }}
-                                        </td>
-                                        <td>
-                                            {{ user.firstname + " " + user.lastname}}
-                                        </td>
-                                        <td *ngIf="!this.isMobileMenu()">
-                                            {{ user.country }}
-                                        </td>
-                                        <td *ngIf="!this.isMobileMenu()">
-                                            {{ user.city }}
-                                        </td>
-                                        <td class="text-primary" *ngIf="!this.isMobileMenu()">
-                                            {{ user.email }}
-                                        </td>
-                                        <td>
-                                            <a (click)="viewProfileUser(user)" style="cursor: pointer;"><i class="material-icons">person</i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="container">
+                                <br><br>
+
+                            
+                            <div class="row" *ngFor="let user of users; index as i">
+                                <div class="card mb-5 mb-xl-0 card-profile">
+                                    <div class="card-header card-header-info" style="text-align: left;">
+                                        
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="card-avatar" style="width: 85px;">
+                                                    <a href="javascript:void(0)">
+                                                        <img class="img" src="{{ this.getPicture(i) }}" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" style="padding: 0px 0px;" id="nameComp">
+                                                <h4 style="font-weight:bold;" >
+                                                    {{ user.firstname + " " + user.lastname }}
+                                                </h4>
+                                            </div>
+                                            <div class="col-md-4" style="text-align: center;">
+                                                <a style="font-size: 16px;" ><i class="material-icons">star</i><i class="material-icons">star</i><span style="margin-left: 10px; margin-right: 10px; font-weight: bold;">{{ user.type }}</span><i class="material-icons">star</i><i class="material-icons">star</i></a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                
+                                            </div>
+                                        </div><br>
+                                        
+                                        <a style="font-size: 16px;" >{{ user.aboutme }} </a>
+                                    </div>
+                                    <div class="card-body p-5">
+                                        
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">email</i><span class="contenu">{{ user.email }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4" *ngIf="user.type == 'alumni'">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">work</i><span class="contenu">{{ user.workAt }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4" *ngIf="user.type == 'student'">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">school</i><span class="contenu">{{ user.class }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p>
+                                                    <img src="../../../assets/img/linkedin.png" style="width: 23px; margin-right: 10px;"><span class="contenu">{{ user.linkedin }}</span>
+                                                </p>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">phone</i><span class="contenu">{{ user.phone }}</span>
+                                                </p>
+                                            </div>
+                
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">location_on</i><span class="contenu">{{ user.address }}</span>
+                                                </p>
+                                            </div>
+                                            
+                                        </div>
+                                       
+                                        
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                         <div class="table-responsive" *ngIf="this.entity == 'company'">
-                            <table class="table">
-                                <thead class=" text-primary" *ngIf="this.companies.length != 0">
-                                    <th *ngIf="!this.isMobileMenu()">
-                                        Number
-                                    </th>
-                                    <th>
-                                        Company name
-                                    </th>
-                                    <th *ngIf="!this.isMobileMenu()">
-                                        Country
-                                    </th>
-                                    <th *ngIf="!this.isMobileMenu()">
-                                        City
-                                    </th>
-                                    <th *ngIf="!this.isMobileMenu()">
-                                        Email address
-                                    </th>
-                                    <th>
-                                        View profile
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let company of companies; index as i">
-                                        <td *ngIf="!this.isMobileMenu()">
-                                            {{ i+1 }}
-                                        </td>
-                                        <td>
-                                            {{ company.name}}
-                                        </td>
-                                        <td *ngIf="!this.isMobileMenu()">
-                                            {{ company.country }}
-                                        </td>
-                                        <td *ngIf="!this.isMobileMenu()">
-                                            {{ company.city }}
-                                        </td>
-                                        <td class="text-primary" *ngIf="!this.isMobileMenu()">
-                                            {{ company.email }}
-                                        </td>
-                                        <td>
-                                            <a (click)="viewProfileCompany(company)" style="cursor: pointer;"><i class="material-icons">domain</i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            
+                            <div class="container">
+                                <br><br>
+
+                            
+                            <div class="row" *ngFor="let company of companies; index as i">
+                                <div class="card mb-5 mb-xl-0 card-profile">
+                                    <div class="card-header card-header-danger" style="text-align: left;">
+                                        
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="card-avatar" style="width: 85px;">
+                                                    <a href="javascript:void(0)">
+                                                        <img class="img" src="{{ this.getPictureCompany(i) }}" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" style="padding: 0px 0px;" id="nameComp">
+                                                <h4 style="font-weight:bold;" >
+                                                    {{ company.name }}
+                                                </h4>
+                                            </div>
+                                            <div class="col-md-4" style="text-align: center;">
+                                                <a style="font-size: 16px;" ><i class="material-icons">star</i><i class="material-icons">star</i><span style="margin-left: 10px; margin-right: 10px; font-weight: bold;">Company</span><i class="material-icons">star</i><i class="material-icons">star</i></a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                
+                                            </div>
+                                        </div><br>
+                                        
+                                        <a style="font-size: 16px;" >{{ company.about }} </a>
+                                    </div>
+                                    <div class="card-body p-5">
+                                        
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">email</i><span class="contenu">{{ company.email }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4">
+
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">phone</i><span class="contenu">{{ company.phone }}</span>
+                                                </p>
+                                                
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">language</i><span class="contenu">{{ company.website }}</span>
+                                                </p>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">flag</i><span class="contenu">{{ company.country }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">holiday_village</i><span class="contenu">{{ company.city }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>
+                                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">location_on</i><span class="contenu">{{ company.address }}</span>
+                                                </p>
+                                            </div>
+                                            
+                
+                                        </div>
+                                        
+                                        
+                                            
+                                            
+                                        
+                                       
+                                        
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+
+                        </div>
+
+                        <div class="table-responsive" *ngIf="this.entity == 'offer'">
+                            
+                            <div class="container">
+                                <br><br>
+
+                            
+                                <div class="row" *ngFor="let n of offers; index as i">
+                                    <div class="card mb-5 mb-xl-0 card-profile">
+                                        <div class="card-header card-header-warning" style="text-align: left;">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="card-avatar" style="width: 85px;">
+                                                        <a href="javascript:void(0)">
+                                                            <img class="img" src="{{ this.getPictureCompany(i) }}" />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2" style="padding: 0px 0px;" id="nameComp">
+                                                    <h4 style="font-weight:bold;">
+                                                        {{ this.companiesInfo[i].name }}
+                                                    </h4>
+                                                </div>
+                                                <div class="col-md-4" style="text-align: center;">
+                                                    <a style="font-size: 16px;" ><i class="material-icons">star</i><i class="material-icons">star</i><span style="margin-left: 10px; margin-right: 10px; font-weight: bold;">{{ n.type }}</span><i class="material-icons">star</i><i class="material-icons">star</i></a>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    
+                                                </div>
+                                            </div><br>
+                                            
+                                            <a style="font-size: 16px;" ><i class="material-icons" style="margin-right: 6px;">today</i>{{ n.start }} &#x2794; {{ n.end }}</a>
+                                        </div>
+                                        <div class="card-body p-5 actions">
+                                            <!--<div class="row" style="direction: rtl;">
+                                                <i style="cursor: pointer;" class="material-icons" (click)="deleteOffer(n.id)">delete_outline</i>
+                                                <i style="cursor: pointer;" class="material-icons" (click)="this.update(n);this.togglePopup();">edit</i>
+                                            </div>-->
+                                            <div class="row">
+                                                <h4 ><b>{{ n.title }}</b></h4>
+                                            </div>
+                                           
+                                            <div class="row">
+                                                <div class="mb-2">
+                                                    <i class=" text-primary"></i>
+                                                    <a>{{ n.content }}</a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-1" *ngFor="let doc of n.docs">
+                                                    <div class="row">
+                                                        <a href="{{ doc.link }}"><img src="../../../assets/img/{{ doc.name.split('.')[doc.name.split('.').length - 1] }}.png" alt="" srcset="" style="width: 80px; max-width: 80%;"><span style="color: black; font-weight: bold;">{{ doc.name }}</span></a>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div><br><br>
+                                </div><br><br>
+                        </div>
+
+
+                        </div>
+
                     </div>
                     <div class="card-body" *ngIf="this.mode == 'map'">
                         <app-map-user></app-map-user>
@@ -163,104 +314,7 @@
     </div>
 </div>
 
-<div class="popup" id="popup-1">
-    <div class="overlay"></div>
-    <div class="content">
-        <div class="close-btn" (click)="togglePopupUser();">×</div>
-        <br><br>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-profile" style="background: linear-gradient(rgb(0, 66, 189), #ffffff);">
-                    <div class="card-avatar">
-                        <a href="javascript:void(0)">
-                            <img class="img" src="{{ this.picture }}" />
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-category" style="font-size:18px; color:rgb(15, 15, 15);">{{ this.user.type }}</h6>
-                        <h4 class="card-title" style="font-weight: bold; color:rgb(15, 15, 15);">{{ this.user.firstname + " " + this.user.lastname }}</h4>
-                        <p class="card-description" style="font-size:18px; color:rgb(27, 27, 27);">
-                            {{ this.user.aboutme }}
-                        </p>
 
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Profile details</h4>
-
-                    </div>
-                    <div class="card-body">
-
-                        <div class="row">
-                            <div class="col-md-8">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">email</i><span class="contenu">{{ this.user.email }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4" *ngIf="this.user.type == 'alumni'">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">work</i><span class="contenu">{{ this.user.workAt }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4" *ngIf="this.user.type == 'student'">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">school</i><span class="contenu">{{ this.user.class }}</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <p>
-                                    <img src="../../../assets/img/linkedin.png" style="width: 23px; margin-right: 10px;"><span class="contenu">{{ this.user.linkedin }}</span>
-                                </p>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">phone</i><span class="contenu">{{ this.user.phone }}</span>
-                                </p>
-                            </div>
-
-                        </div>
-                        <!--<div class="row">
-                            <div class="col-md-4">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">history_edu</i><span class="contenu">{{ this.user.promotion }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">emoji_flags</i><span class="contenu">{{ this.user.country }}</span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">holiday_village</i><span class="contenu">{{ this.user.city }}</span>
-                                </p>
-                            </div>
-                        </div>-->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p>
-                                    <i class="material-icons" style="margin-right: 10px; margin-bottom: 0px; margin-top: auto;">location_on</i><span class="contenu">{{ this.user.address }}</span>
-                                </p>
-                            </div>
-                            
-                        </div>
-
-
-                        <div class="clearfix"></div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
 <div class="popup" id="popup-2">

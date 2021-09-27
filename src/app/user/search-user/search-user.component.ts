@@ -51,6 +51,47 @@ export class SearchUserComponent implements OnInit {
     }
   }
   
+
+  getPicture(i: number){
+    let url = "../../../assets/img/companyprofil.png";
+    if(this.users[i].picture != undefined && this.users[i].picture != ""){
+      url = this.users[i].picture;
+    }
+    return url;
+  }
+
+  getPictureCompany(i: number){
+    let url = "../../../assets/img/companyprofil.png";
+    if(this.companies[i].logo != undefined && this.companies[i].logo != ""){
+      url = this.companies[i].logo;
+    }
+    return url;
+  }
+
+
+  offers1 = [];
+  offers = [];
+  companiesId = [];
+  companiesInfo = [];
+
+
+  
+  getCompaniesInfo(){
+    this.offers1.forEach(elt => {
+      this.companiesId.push(elt.companyid);
+    });
+    console.log(this.companiesId);
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
+    this.http.post("https://backend-ticenit.herokuapp.com/student/companiesinfo" ,{ companies : this.companiesId},{ headers: reqHeader }).subscribe((data : any) => {
+      this.companiesInfo = data;
+      this.offers = this.offers1;
+      console.log(data);
+    },
+    (err : HttpErrorResponse)=>{
+    console.log(err);
+    });
+  }
+
   isMobileMenu() {
     if ($(window).width() > 991) {
         return false;
