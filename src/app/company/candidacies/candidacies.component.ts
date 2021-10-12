@@ -1,6 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'app/user/models/user.model';
+import { Offer } from '../models/offer.model';
 
 
 @Component({
@@ -16,9 +18,9 @@ export class CandidaciesComponent implements OnInit {
     this.getCandidacies();
   }
   
-  offer = {};
+  offer : Offer = new Offer();
   candidacies = [];
-  user={};
+  user : User = new User("student");
   picture = "../../../assets/img/profil.png";
   public getCandidacies(){
     var id = "";
