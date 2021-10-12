@@ -95,7 +95,7 @@
                     <div class="row" style="direction: rtl;">
                         <i style="cursor: pointer;" class="material-icons" (click)="deleteOffer(n.id)">delete_outline</i>
                         <i style="cursor: pointer;" class="material-icons" (click)="this.update(n);this.togglePopup();">edit</i>
-                        <a [routerLink]="['/company/candidacies/',n.id]" ><i style="cursor: pointer;" class="material-icons" >apps</i></a>
+                        <a class="actions" [routerLink]="['/company/candidacies/',n.id]" style="color: black;"><i style="cursor: pointer;" class="material-icons" >apps</i></a>
 
                     </div>
                     <div class="row">
