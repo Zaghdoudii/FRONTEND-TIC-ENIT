@@ -16,6 +16,7 @@ import { CompanyRoutes } from './company.routing';
 import { CompanyComponentsModule } from './company-components/company-components.module';
 import { EditProfileCompanyComponent } from './edit-profile-company/edit-profile-company.component';
 import { ProgressBarModule } from 'angular-progress-bar';
+import { CandidaciesComponent } from './candidacies/candidacies.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { ProgressBarModule } from 'angular-progress-bar';
     ProfileCompanyComponent,
     SearchCompanyComponent,
     EditProfileCompanyComponent,
+    CandidaciesComponent,
     
 
   ],
