@@ -124,8 +124,4 @@ export class VisitorNavbarComponent implements OnInit {
     }
     return '';
   }
-
-  
-
-
 }

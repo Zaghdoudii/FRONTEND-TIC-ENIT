@@ -21,10 +21,11 @@ export class VisitorSidebarComponent implements OnInit {
 
   ngOnInit() {
     ROUTES = [
+      { path: '/visitor/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
       { path: '/visitor/news', title: 'News',  icon: 'menu', class: '' },
       { path: '/visitor/statistics', title: 'Statistics',  icon: 'trending_up', class: '' },
-      //{ path: '/visitor/members', title: 'Our members',  icon: 'people_alt', class: '' },
-      //{ path: '/visitor/about', title: 'About us',  icon: 'info', class: '' },
+      { path: '/visitor/members', title: 'Our members',  icon: 'people_alt', class: '' },
+      { path: '/visitor/about', title: 'About us',  icon: 'info', class: '' },
     ];
     
     this.menuItems = ROUTES.filter(menuItem => menuItem);
