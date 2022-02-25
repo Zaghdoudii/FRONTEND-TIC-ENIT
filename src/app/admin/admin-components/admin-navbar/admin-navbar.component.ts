@@ -122,7 +122,6 @@ export class AdminNavbarComponent implements OnInit {
 
             body.classList.add('nav-open');
             this.mobile_menu_visible = 1;
-
         }
     };
 
