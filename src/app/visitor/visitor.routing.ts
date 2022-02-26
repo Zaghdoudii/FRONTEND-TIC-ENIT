@@ -13,7 +13,7 @@ export const VisitorRoutes: Routes = [
   },
   { path: 'news',               component: NewsComponent },
   { path: 'statistics',               component: DashboardComponent },
-  { path: 'members',                   component: MembersComponent },
+
   { path: 'about',                component: AboutComponent },
   {
     path: '**',
