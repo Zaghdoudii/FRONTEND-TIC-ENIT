@@ -24,6 +24,7 @@ export class VisitorSidebarComponent implements OnInit {
       { path: '/visitor/news', title: 'News',  icon: 'menu', class: '' },
       { path: '/visitor/statistics', title: 'Statistics',  icon: 'trending_up', class: '' },
       { path: '/visitor/about', title: 'About us',  icon: 'info', class: '' },
+      { path: '/visitor/contact', title: 'Contact',  icon: 'mail', class: '' },
     ];
     
     this.menuItems = ROUTES.filter(menuItem => menuItem);
