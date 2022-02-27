@@ -18,6 +18,7 @@ import { VisitorComponentsModule } from './visitor-components/visitor-components
 import { NewsComponent } from './news/news.component';
 import { MembersComponent } from './members/members.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AboutComponent } from './about/about.component';
     NewsComponent,
     MembersComponent,
     AboutComponent,
+    ContactComponent,
     
   ],
   imports: [
