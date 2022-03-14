@@ -15,6 +15,7 @@ export class ProfileUserComponent implements OnInit {
   form: FormGroup;
   imageData: string;
   modifPic = false;
+  imageExiste =true;
 
   onFileChanged(event) {
     const file = (event.target).files[0];
