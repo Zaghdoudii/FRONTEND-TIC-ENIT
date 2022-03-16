@@ -19,6 +19,7 @@ import { HomeUserComponent } from './home-user/home-user.component';
 import { MapUserComponent } from './map-user/map-user.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { ProgressBarModule } from 'angular-progress-bar';
+import { SearchAdminComponent } from './search-admin/search-admin.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ProgressBarModule } from 'angular-progress-bar';
     
     MapUserComponent,
     DocumentsComponent,
+    SearchAdminComponent,
   ],
   providers: [IsUserGuard],
 })
