@@ -24,9 +24,9 @@ export class UserSidebarComponent implements OnInit {
   ngOnInit() {
     ROUTES = [
       { path: '/user/home', title: 'Home',  icon: 'home', class: '' },
-      { path: '/user/Search', title: 'Search',  icon:'search', class: '' },
-      { path: '/user/profile', title: 'My profile' ,  icon:'person', class: '' },
       { path: '/user/documents', title: 'Documents',  icon:'description', class: '' },
+      { path: '/user/search', title: 'Search',  icon:'search', class: '' },
+      { path: '/user/profile', title: 'My profile' ,  icon:'person', class: '' },
     ];
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
