@@ -1,22 +1,7 @@
-@media screen and (max-width: 900px) {
-    #nameComp{
-        text-align: center;
-    }
-    
-}
-
-@media screen and (min-width: 900px) {
-    #nameComp{
-        text-align: left;
-    }
-    
-}
-
 select {
     -webkit-appearance: button;
     -moz-appearance: button;
-    -webkit-user-select: none;
-    -moz-user-select: none;
+
     -webkit-padding-end: 20px;
     -moz-padding-end: 20px;
     -webkit-padding-start: 2px;
@@ -126,14 +111,14 @@ select {
 }
 
 .change-mode {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
     padding-top: 5px;
-    
+    padding-bottom: 5px;
     border: none;
-    background: none;
+    background: linear-gradient(90deg, rgb(1, 90, 255) 4%, rgb(0, 27, 150) 94%);
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: #fff;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
@@ -168,25 +153,6 @@ select {
     display: none;
 }
 
-@media screen and (max-width : 750px) {
-    .popup .content {
-        position: fixed;
-        margin-top: 80px;
-        top: calc(50% - 80px);
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        background: RGB(238, 238, 238);
-        width: 100% !important;
-        /*height: auto;*/
-        z-index: 15;
-        text-align: center;
-        padding: 10px;
-        box-sizing: border-box;
-        font-family: "Open Sans", sans-serif;
-        border-radius: 4px;
-    }
-    
-}
 .popup .content {
     position: fixed;
     margin-top: 80px;
@@ -198,7 +164,7 @@ select {
     /*height: auto;*/
     z-index: 15;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
     border-radius: 4px;
@@ -245,3 +211,7 @@ div.row>* {
     text-align: left;
 }
 
+option {
+    cursor: pointer;
+    padding: 2px;
+}

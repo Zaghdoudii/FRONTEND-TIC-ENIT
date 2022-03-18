@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchAdminComponent } from './search-admin.component';
+import { MapAdminComponent } from './map-admin.component';
 
-describe('SearchAdminComponent', () => {
-  let component: SearchAdminComponent;
-  let fixture: ComponentFixture<SearchAdminComponent>;
+describe('MapAdminComponent', () => {
+  let component: MapAdminComponent;
+  let fixture: ComponentFixture<MapAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchAdminComponent ]
+      declarations: [ MapAdminComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchAdminComponent);
+    fixture = TestBed.createComponent(MapAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

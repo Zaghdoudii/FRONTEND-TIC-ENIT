@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Company } from 'app/company/models/company.model';
-import { User } from '../models/user.model';
-
+import { User } from 'app/user/models/user.model';
 
 @Component({
   selector: 'app-search-user',
@@ -11,13 +11,20 @@ import { User } from '../models/user.model';
 })
 export class SearchUserComponent implements OnInit {
 
-
   users: any;
   companies : any;
   property = "";
   key: string;
   entity = "";
   mode = "table";
+  
+  
+  
+  
+  firstname : string;
+  lastname : string;
+  id : string;
+  country : string;
   date = new Date();
   years = [];
   classes = [
@@ -40,130 +47,74 @@ export class SearchUserComponent implements OnInit {
     "3rd Tel 2",
     "3rd Tel 3"
   ];
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) {}
 
   ngOnInit() {
     this.users = []; // to prevent ngFor to throw while we wait for API to return data
     this.companies = [];
+    //this.getAll();
     let i = 0;
     for(i=2000; i<this.date.getFullYear() + 5;i++){
       this.years.push(i+"");
     }
   }
   
-
-  getPicture(i: number){
-    let url = "../../../assets/img/companyprofil.png";
-    if(this.users[i].picture != undefined && this.users[i].picture != ""){
-      url = this.users[i].picture;
-    }
-    return url;
-  }
-
-  getPictureCompany(i: number){
-    let url = "../../../assets/img/companyprofil.png";
-    if(this.companies[i].logo != undefined && this.companies[i].logo != ""){
-      url = this.companies[i].logo;
-    }
-    return url;
-  }
-
-
-  offers1 = [];
-  offers = [];
-  companiesId = [];
-  companiesInfo = [];
-
-
   
-  getCompaniesInfo(){
-    this.offers1.forEach(elt => {
-      this.companiesId.push(elt.companyid);
-    });
-    console.log(this.companiesId);
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    this.http.post("https://backend-ticenit.herokuapp.com/student/companiesinfo" ,{ companies : this.companiesId},{ headers: reqHeader }).subscribe((data : any) => {
-      this.companiesInfo = data;
-      this.offers = this.offers1;
-      console.log(data);
-    },
-    (err : HttpErrorResponse)=>{
-    console.log(err);
-    });
-  }
+  
+ 
+  
+  
 
-  isMobileMenu() {
-    if ($(window).width() > 991) {
-        return false;
-    }
-    return true;
-};
-
-public togglePopupLoading(){
-  document.getElementById("popup-99").classList.toggle("active");
-}
-noResult = false;
   search(){
-    this.togglePopupLoading();
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    this.http.get("https://backend-ticenit.herokuapp.com/"+ this.entity +"/search?property="+this.property+"&key="+this.key, { headers: reqHeader }).subscribe((data : any)=>{
-    //this.http.get("https://backend-ticenit.herokuapp.com/student/location?property=firstname&key=dabbabi", { headers: reqHeader }).subscribe((data : any)=>{
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+    this.http.get("https://backend-ticenit.herokuapp.com/admin/search/"+this.entity+"?property="+this.property+"&key="+this.key, { headers: reqHeader }).subscribe((data : any)=>{
       console.log(data);
-      this.togglePopupLoading();
-      if(this.entity == "student"){
+      if(this.entity =="student"){
         this.users = data;
-        if(this.users.length == 0){
-          this.noResult = true;
-        }else{
-          this.noResult = false;
-        }
-      }else{
-        this.companies = data;
-        if(this.companies.length == 0){
-          this.noResult = true;
-        }else{
-          this.noResult = false;
-        }
-      }
-   },
-   (err : HttpErrorResponse)=>{
-    console.log(err);
-    this.togglePopupLoading();
-    if(this.entity == "student"){
-      this.users = [];
-      this.noResult = true;
-    }else{
-      this.companies = [];
-      this.noResult = true;
-    }
-   });
-
-  }
-  getAll(){
-    this.togglePopupLoading();
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    var entite = "";
-    if(this.entity == "student"){
-      entite = "all";
-    }else if(this.entity == "company"){
-      entite = "companies";
-    }
-    this.http.get("https://backend-ticenit.herokuapp.com/student/" + entite , { headers: reqHeader }).subscribe((data : any)=>{
-      console.log(data);
-      this.togglePopupLoading();
-      if(this.entity == "student"){
-        this.users = data;
-      }else if(this.entity == "company"){
+      }else if(this.entity =="company"){
         this.companies = data;
       }
       
+      this.addresses = [];
    },
    (err : HttpErrorResponse)=>{
     console.log(err);
-    this.togglePopupLoading();
+   });
+
+  }
+  getAllUsers(){
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+    this.http.get("https://backend-ticenit.herokuapp.com/admin/allstudents", { headers: reqHeader }).subscribe((data : any)=>{
+      console.log(data);
+      this.users = data;
+      this.addresses = [];
+   },
+   (err : HttpErrorResponse)=>{
+    console.log(err);
+    
+   });
+  }
+  getAllCompanies(){
+    this.addresses = [];
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+    this.http.get("https://backend-ticenit.herokuapp.com/admin/allcompanies", { headers: reqHeader }).subscribe((data : any)=>{
+      console.log(data);
+      this.companies = data;
+      this.addresses = [];
+   },
+   (err : HttpErrorResponse)=>{
+    console.log(err);
+    
    });
   }
 
+  getAll(){
+    if(this.entity =="student"){
+      this.getAllUsers();
+    }else{
+      this.getAllCompanies();
+    }
+  }
   addresses = [];
   changeMode(){
     if(this.mode == "table"){
@@ -179,13 +130,73 @@ noResult = false;
       this.mode = "table";
     }
   }
+  public nameUserDelete = "";
+  public idUserDelete = "";
+  public deletepage = "delete";
+  public togglePopup(){
+    document.getElementById("popup-1").classList.toggle("active");
+  }
+  public deleteUser(id : string){
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+    this.http.delete("https://backend-ticenit.herokuapp.com/admin/student/"+id, { headers: reqHeader }).subscribe((data : any)=>{
+      console.log(data);
+      this.deletepage = "success";
+      //this.users = data;
+      //this.addresses = [];
+   },
+   (err : HttpErrorResponse)=>{
+    console.log(err);
+    this.deletepage = "error";
+   });
+  }
+
+  
+  toggleSelection(email,id){
+    if(this.addresses.indexOf(email) != -1){
+      this.addresses.splice(this.addresses.indexOf(email),1);
+      this.groupIdDelete.splice(this.groupIdDelete.indexOf(id),1);
+    }else{
+      this.addresses.push(email);
+      this.groupIdDelete.push(id);
+    }
+    //console.log(this.addresses);
+  }
+  toggleSelectAll(){
+    if(this.addresses.length < this.users.length){
+      this.addresses = [];
+      this.groupIdDelete = [];
+      this.users.forEach(element => {
+        this.addresses.push(element.email);
+        this.groupIdDelete.push(element.id);
+      });
+    }else{
+      this.addresses = [];
+      this.groupIdDelete = [];
+    }
+  }
+
+  mail(){
+    localStorage.setItem("addresses",JSON.stringify(this.addresses));
+    this.router.navigate(["/admin/send"]);
+  }
+
+  oneMail(email){
+    this.addresses = [email];
+    localStorage.setItem("addresses",JSON.stringify(this.addresses));
+    this.router.navigate(["/admin/send"]);
+  }
+
   public togglePopupUser(){
     //this.popup = 'home';
-    document.getElementById("popup-1").classList.toggle("active");
+    this.pageuser = "profile";
+    document.getElementById("popup-2").classList.toggle("active");
   }
   user = new User("student");
   picture = "../../../assets/img/profil.png";
+  pageuser = "profile";
+  idUserUpdate = "";
   viewProfileUser(data : any){
+    this.idUserUpdate = data.id;
     this.user.firstname =data.firstname;
     this.user.lastname =data.lastname;
     this.user.email =data.email;
@@ -205,14 +216,33 @@ noResult = false;
     this.togglePopupUser();
 
   }
-  
+  updateProfileUser(){
+    console.log(this.user);
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+    this.http.patch("https://backend-ticenit.herokuapp.com/admin/student/"+this.idUserUpdate,this.user, { headers: reqHeader }).subscribe((data : any)=>{
+      console.log(data);
+      
+      this.pageuser = "profile";
+   },
+   (err : HttpErrorResponse)=>{
+    console.log(err);
+    this.pageuser = "profile";
+   });
+  }
+
+  cancelUpdateProfileUser(){
+    this.pageuser = "profile";
+  }
   company = new Company();
+  pageCompany = "profile";
+  idCompanyUpdate = "";
   logo = "./assets/img/companyprofil.png";
   public togglePopupCompany(){
     //this.popup = 'home';
-    document.getElementById("popup-2").classList.toggle("active");
+    document.getElementById("popup-3").classList.toggle("active");
   }
   viewProfileCompany(data : any){
+    this.idCompanyUpdate = data.id;
     this.company.name =data.name;
       this.company.email =data.email;
       this.company.country =data.country;
@@ -226,5 +256,45 @@ noResult = false;
       }
     this.togglePopupCompany();
   }
-
+  updateProfileCompany(){
+    console.log(this.company);
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+    this.http.patch("https://backend-ticenit.herokuapp.com/admin/company/"+this.idCompanyUpdate,this.company, { headers: reqHeader }).subscribe((data : any)=>{
+      console.log(data);
+      
+      this.pageCompany = "profile";
+   },
+   (err : HttpErrorResponse)=>{
+    console.log(err);
+    this.pageCompany = "profile";
+   });
+  }
+  deleteGroup = "delete";
+  groupIdDelete = [];
+  public togglePopupGroup(){
+    //this.popup = 'home';
+    this.deleteGroup = "delete";
+    document.getElementById("popup-4").classList.toggle("active");
+  }
+  public deleteGroupItems(){
+    console.log(this.groupIdDelete);
+    var obj = {"deleteArray": this.groupIdDelete};
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
+    this.http.post("https://backend-ticenit.herokuapp.com/admin/" + this.entity + "/delete",obj, { headers: reqHeader }).subscribe((data : any)=>{
+      console.log(data);
+      this.groupIdDelete = [];
+      this.addresses = [];
+      this.deleteGroup = "success";
+      /*if(this.entity == "student"){
+        this.users = [];
+      }else if(this.entity == "company"){
+        this.companies = [];
+      }*/
+      
+   },
+   (err : HttpErrorResponse)=>{
+    console.log(err);
+    this.deleteGroup = "error";
+   });
+  }
 }
