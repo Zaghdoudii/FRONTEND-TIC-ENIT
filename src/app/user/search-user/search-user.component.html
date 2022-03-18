@@ -54,9 +54,9 @@
                         </div>
                     </div>
                     <div style="display: flex; flex-direction:row;">
-                        <!-- 
+                        
                         <button *ngIf="this.entity != ''" class="searchButton1" style="margin-left: 17px;" (click)="getAll()">Get All</button>
-                        <button *ngIf="this.addresses.length != 0" class="searchButton3" (click)="togglePopupGroup()"> Delete</button>
+                        <!-- <button *ngIf="this.addresses.length != 0" class="searchButton3" (click)="togglePopupGroup()"> Delete</button>
                         <button *ngIf="this.addresses.length != 0" class="searchButton2" (click)="mail()"> Send mail</button> -->
                         <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'table' && this.entity != ''">View in map</button>
                         <button class="change-mode" (click)="changeMode()" *ngIf="this.mode == 'map' && this.entity != ''">View in table</button>
