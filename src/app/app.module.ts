@@ -25,6 +25,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MapUserComponent } from './user/map-user/map-user.component';
+import {UserModule} from './user/user.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
@@ -44,7 +46,8 @@ import { MapUserComponent } from './user/map-user/map-user.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    AgmCoreModule.forRoot()
+    AgmCoreModule.forRoot(),
+    UserModule
   ],
 
   declarations: [
