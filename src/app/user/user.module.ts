@@ -21,8 +21,10 @@ import { DocumentsComponent } from './documents/documents.component';
 import { ProgressBarModule } from 'angular-progress-bar';
 import { MapAdminComponent } from './map-admin/map-admin.component';
 import { UserPostsComponent } from './user-posts/user-posts.component';
-import {IconsModule, MDBRootModule} from "angular-bootstrap-md";
+import {IconsModule, MDBRootModule} from 'angular-bootstrap-md';
 import { NewPostComponent } from './new-post/new-post.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { NewPostComponent } from './new-post/new-post.component';
         ProgressBarModule,
         IconsModule,
         IconsModule,
-        MDBRootModule
+        MDBRootModule,
+        MatDialogModule
     ],
     declarations: [
         HomeUserComponent,
@@ -56,7 +59,8 @@ import { NewPostComponent } from './new-post/new-post.component';
     ],
     providers: [IsUserGuard],
     exports: [
-        UserPostsComponent
+        UserPostsComponent,
+        NewPostComponent
     ]
 })
 export class UserModule { }

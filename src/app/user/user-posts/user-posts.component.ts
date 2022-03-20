@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import {NewPostComponent} from '../new-post/new-post.component';
 
 @Component({
   selector: 'app-user-posts',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPostsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogRef: MatDialog) {}
 
   ngOnInit(): void {
   }
+  openDialog() {
+    this.dialogRef.open(NewPostComponent);
+    }
 
 }
