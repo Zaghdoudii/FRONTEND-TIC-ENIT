@@ -32,7 +32,7 @@
                         <div class="col-md-2 actions" style="text-align: center;" *ngFor="let doc of files">
                             <div class="row" style="direction: rtl;">
                                 <i class="material-icons" style="direction: center; cursor: pointer;width: 20px;margin: 3px;" (click)="this.selectedDoc = doc;togglePopup4();">info_outline</i>
-                                <i *ngIf="doc.idcreator == this.id" class="material-icons" style="margin: 3px;direction: center; cursor: pointer;width: 20px;" (click)="this.title = doc.title; togglePopup2();">delete_outline</i>
+                               <!-- <i *ngIf="doc.idcreator == this.id" class="material-icons" style="margin: 3px;direction: center; cursor: pointer;width: 20px;" (click)="this.title = doc.title; togglePopup2();">delete_outline</i> -->
                             </div>
                             <a *ngIf="doc.extension == 'doc' || doc.extension == 'docx' || doc.extension == 'pdf' || doc.extension == 'pptx' || doc.extension == 'ppt' || doc.extension == 'mp3' || doc.extension == 'mp4' || doc.extension == 'html' || doc.extension == 'htm' || doc.extension == 'odt' || doc.extension == 'xls' || doc.extension == 'xlsx' || doc.extension == 'wav' || doc.extension == 'exe' || doc.extension == 'rar' ||  doc.extension == 'zip'; else elseBlock" target="blank" href="{{ doc.link }}"><img src="../../../assets/img/{{ doc.extension }}.png" alt="" srcset="" style="cursor: pointer;width: 70%;"></a>
                             <ng-template #elseBlock>
@@ -97,10 +97,11 @@
 
     </div>
 </div>
-
+<!-- 
 <div class="popup" id="popup-2">
     <div class="overlay" (click)="togglePopup2();"></div>
     <div class="content" style="max-width: 520px;">
+
         <div class="row">
             
             <div class="card">
@@ -121,7 +122,7 @@
         </div>
     </div>
 </div>
-
+-->
 <div class="popup" id="popup-3">
     <div class="overlay" (click)="togglePopup3();"></div>
     <div class="content" style="width: 78% !important;">
