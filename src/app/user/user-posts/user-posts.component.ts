@@ -16,5 +16,7 @@ export class UserPostsComponent implements OnInit {
   openDialog() {
     this.dialogRef.open(NewPostComponent);
     }
-
+  closeDialog(){
+    this.dialogRef.closeAll()
+  }
 }

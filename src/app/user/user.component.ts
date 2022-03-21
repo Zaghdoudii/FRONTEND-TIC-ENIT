@@ -18,7 +18,7 @@ export class UserComponent implements OnInit {
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
   public location: Location;
-   private router: Router;
+  private router: Router;
   constructor() {}
 
   ngOnInit() {

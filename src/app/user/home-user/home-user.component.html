@@ -1,15 +1,11 @@
 
 
 <div class="main-content">
-    <div class="container">
-        <div class="row">
-            
-            
 
+    <div class="container">
         <div class="row" *ngFor="let n of offers; index as i">
             <div class="card mb-5 mb-xl-0 card-profile">
                 <div class="card-header card-header-warning" style="text-align: left;">
-                    
                     <div class="row">
                         <div class="col-md-2">
                             <div class="card-avatar" style="width: 85px;">
@@ -26,9 +22,6 @@
                         <div class="col-md-4" style="text-align: center;">
                             <a style="font-size: 16px;" ><i class="material-icons">star</i><i class="material-icons">star</i><span style="margin-left: 10px; margin-right: 10px; font-weight: bold;">{{ n.type }}</span><i class="material-icons">star</i><i class="material-icons">star</i></a>
                         </div>
-                        <div class="col-md-4">
-                            
-                        </div>
                     </div><br>
                     
                     <a style="font-size: 16px;" ><i class="material-icons" style="margin-right: 6px;">today</i>{{ n.start }} &#x2794; {{ n.end }}</a>
@@ -36,13 +29,10 @@
                 <div class="card-body p-5 actions">
                     <div class="row" style="direction: rtl;">
                         <i style="cursor: pointer;" class="material-icons" (click)="this.idOffer = n.id ; this.togglePopup();">app_registration</i>
-                        
                     </div>
-                    
                     <div class="row">
                         <h4 ><b>{{ n.title }}</b></h4>
                     </div>
-                   
                     <div class="row">
                         <div class="mb-2">
                             <i class=" text-primary"></i>
@@ -50,28 +40,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        
-                        <div class="col-md-1" *ngFor="let doc of n.docs">
+                        <div class="col-md-1" *ngFor="let doc of docs">
                             <div class="row">
                                 <a href="{{ doc.link }}"><img src="../../../assets/img/{{ doc.name.split('.')[doc.name.split('.').length - 1] }}.png" alt="" srcset="" style="width: 80px; max-width: 80%;"><span style="color: black; font-weight: bold;">{{ doc.name }}</span></a>
                             </div>
-                            
                         </div>
                     </div>
                     
                 </div>
             </div><br><br>
-        </div><br><br>
-    </div>
+        </div>
+            <br><br>
+
 </div>
 
 <div class="popup" id="popup-1">
     <div class="overlay" (click)="this.togglePopup();"></div>
     <div class="content">
-
         <div class="row">
-            
-            
                         <div class="card">
                             <br><br>
                             <div class="card-header card-header-warning" style="text-align: center;">
@@ -110,19 +96,10 @@
                             <div style="display: flex; flex-direction:row;">
                                 <input mat-raised-button (click)="addCandidacy();" type="button" class="btn btn-danger" value="Apply" style="padding: 9px 22px;margin-right:5%;margin-left: auto;">
                             </div>
-                        
-                        
-                   
-                   
-               
-                
-            
             </div>
         </div>
-
-        
-
     </div>
 </div>
-</div>>
+
+</div>
 

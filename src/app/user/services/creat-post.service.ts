@@ -7,7 +7,7 @@ import {Post} from '../classes/post';
 })
 export class CreatPostService {
 
-  _url = '';
+  _url = 'http://localhost:3000/posts';
   constructor(private _http: HttpClient) { }
 
   sendPost(post: Post) {

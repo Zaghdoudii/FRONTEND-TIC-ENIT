@@ -6,8 +6,21 @@
             aria-label="Close"
     ></button>
 </div>
-<div class="modal-body">...</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-primary" style="background-color: #0d47a1">Close</button>
-    <button type="button" class="btn btn-primary" style="background-color: #0d47a1">Save changes</button>
+<div class="modal-body">
+    <form #postForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+        {{ postForm.value | json}}
+        <hr>
+        {{ newpost | json}}
+        <div class="form-group">
+            <input type="text" id="topic" name="topic" class="form-control" placeholder="General Topic" [(ngModel)]="newpost.topic" required><br>
+            <input type="text" class="form-control" id="title" name="title" placeholder="title" [(ngModel)]="newpost.title" required><br>
+            <input type="text"  class="form-control" id="description" name="description" placeholder="Description" [(ngModel)]="newpost.description" required ><br>
+            <input type="text"  class="form-control"  id="body" name="body" placeholder="body" [(ngModel)]="newpost.body" required><br>
+            <input type="submit" [disabled]="postForm.form.invalid" class="btn btn-primary form-control"  value="send post" style="background-color: #0d47a1" required >
+        </div>
+    </form>
 </div>
+<!--<div class="modal-footer">
+    <button type="button" class="btn btn-primary" style="background-color: #0d47a1">Close</button>
+    <button type="submit" class="btn btn-primary" style="background-color: #0d47a1">Save changes</button>
+</div>-->

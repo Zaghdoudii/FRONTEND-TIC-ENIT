@@ -9,7 +9,7 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
-export var ROUTES: RouteInfo[] = [];
+export let ROUTES: RouteInfo[] = [];
 
 @Component({
   selector: 'app-user-sidebar',
@@ -19,14 +19,15 @@ export var ROUTES: RouteInfo[] = [];
 export class UserSidebarComponent implements OnInit {
   menuItems: any[];
   readonly url = 'http://pfa2-nodejs.herokuapp.com/student/';
-  constructor(private http : HttpClient) { }
-  
+  constructor(private http: HttpClient) { }
+
   ngOnInit() {
     ROUTES = [
       { path: '/user/home', title: 'Home',  icon: 'home', class: '' },
-      { path: '/user/documents', title: 'Documents',  icon:'description', class: '' },
-      { path: '/user/search', title: 'Search',  icon:'search', class: '' },
-      { path: '/user/profile', title: 'My profile' ,  icon:'person', class: '' },
+        { path: '/user/user-posts', title: 'Posts',  icon: 'article', class: '' },
+      { path: '/user/documents', title: 'Documents',  icon: 'description', class: '' },
+      { path: '/user/search', title: 'Search',  icon: 'search', class: '' },
+      { path: '/user/profile', title: 'My profile' ,  icon: 'person', class: '' },
     ];
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
@@ -37,7 +38,7 @@ export class UserSidebarComponent implements OnInit {
       return true;
   };
 
-  logout(){
+  logout() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('user_id');
     window.location.replace('/visitor/news');

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProfileUserComponent } from './profile-user/profile-user.component';
-
 import { IsUserGuard } from './guards/is-user.guard';
 import { UserRoutes } from './user.routing';
 import { RouterModule } from '@angular/router';
@@ -24,6 +22,7 @@ import { UserPostsComponent } from './user-posts/user-posts.component';
 import {IconsModule, MDBRootModule} from 'angular-bootstrap-md';
 import { NewPostComponent } from './new-post/new-post.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -44,13 +43,13 @@ import { MatDialogModule } from '@angular/material/dialog';
         IconsModule,
         IconsModule,
         MDBRootModule,
-        MatDialogModule
+        MatDialogModule,
+        HttpClientModule
     ],
     declarations: [
         HomeUserComponent,
         ProfileUserComponent,
         SearchUserComponent,
-
         MapUserComponent,
         DocumentsComponent,
         MapAdminComponent,

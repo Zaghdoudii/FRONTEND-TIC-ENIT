@@ -9,6 +9,28 @@ import { Candidacy } from '../models/candidacy.model';
   styleUrls: ['./home-user.component.css']
 })
 export class HomeUserComponent implements OnInit {
+  offers1 = [];
+  offers = [];
+  companiesId = [];
+  companiesInfo = [];
+
+  idOffer = '';
+  contentOffer = '';
+  docs = [];
+  noDocs = true;
+
+  erreur1 = false;
+
+  selectedFile: File;
+
+  form: FormGroup;
+  fileData: string;
+  size = '';
+  selectedDoc: Document = new Document();
+  status = [];
+  selectedFiles = [];
+
+  title = '';
 
   constructor(private http: HttpClient) { }
 
@@ -19,73 +41,53 @@ export class HomeUserComponent implements OnInit {
     });
     this.getOffers();
   }
-  offers1 = [];
-  offers = [];
-  companiesId = [];
-  companiesInfo = [];
-  getOffers(){
-    
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    this.http.get("https://backend-ticenit.herokuapp.com/offers" ,{ headers: reqHeader }).subscribe((data : any) => {
-      console.log(data);  
+  getOffers() {
+
+    const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
+    this.http.get('https://backend-ticenit.herokuapp.com/offers' , { headers: reqHeader }).subscribe((data: any) => {
+      console.log(data);
       this.offers1 = data;
       this.getCompaniesInfo();
     },
-    (err : HttpErrorResponse)=>{
+    (err: HttpErrorResponse) => {
     console.log(err);
     });
   }
 
-  getPictureCompany(i: number){
-    let url = "../../../assets/img/companyprofil.png";
-    if(this.companiesInfo[i].logo != undefined && this.companiesInfo[i].logo != ""){
+  getPictureCompany(i: number) {
+    let url = '../../../assets/img/companyprofil.png';
+    if (this.companiesInfo[i].logo !== undefined && this.companiesInfo[i].logo !== '') {
       url = this.companiesInfo[i].logo;
     }
     return url;
   }
 
-  getCompaniesInfo(){
+  getCompaniesInfo() {
     this.offers1.forEach(elt => {
       this.companiesId.push(elt.companyid);
     });
     console.log(this.companiesId);
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    this.http.post("https://backend-ticenit.herokuapp.com/student/companiesinfo" ,{ companies : this.companiesId},{ headers: reqHeader }).subscribe((data : any) => {
+    const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
+    this.http.post('https://backend-ticenit.herokuapp.com/student/companiesinfo' , { companies : this.companiesId}, { headers: reqHeader }).subscribe((data: any) => {
       this.companiesInfo = data;
       this.offers = this.offers1;
       console.log(data);
     },
-    (err : HttpErrorResponse)=>{
+    (err: HttpErrorResponse) => {
     console.log(err);
     });
   }
 
-  public togglePopup(){
-    document.getElementById("popup-1").classList.toggle("active");
+  public togglePopup() {
+    document.getElementById('popup-1').classList.toggle('active');
   }
-
-  idOffer = "";
-  contentOffer = "";
-  docs = [];
-  noDocs = true;
-  
-  erreur1 = false;
-  
-  selectedFile : File;
-  
-  form: FormGroup;
-  fileData: string;
-  size = '';
-  selectedDoc : Document = new Document();
-  status = [];
-  selectedFiles = [];
 
   onFileChanged(event) {
     this.selectedFiles = (event.target).files;
     console.log(this.selectedFiles);
-    for(var i = 0;i<this.selectedFiles.length;i++){
+    for (let i = 0; i < this.selectedFiles.length; i++) {
       this.status.push({
-        id : this.selectedFiles[i].size + 300 +'',
+        id : this.selectedFiles[i].size + 300 + '',
         status : 0,
         name : this.selectedFiles[i].name,
       });
@@ -93,77 +95,75 @@ export class HomeUserComponent implements OnInit {
     this.noDocs = false;
   }
 
-  postCandidacy(cand : Candidacy){
+  postCandidacy(cand: Candidacy) {
     console.log(cand);
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("userToken")});
-    this.http.post("https://backend-ticenit.herokuapp.com/student/apply/"+ this.idOffer,cand ,{ headers: reqHeader }).subscribe((data : any)=>{
-     //console.log(data);
-    
-    this.contentOffer = "";
-    
-    //this.getOffers();
+    const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
+    this.http.post('https://backend-ticenit.herokuapp.com/student/apply/' + this.idOffer, cand , { headers: reqHeader }).subscribe((data: any) => {
+     // console.log(data);
+
+    this.contentOffer = '';
+
+    // this.getOffers();
    },
-   (err : HttpErrorResponse)=>{
-    //console.log(err);
+   (err: HttpErrorResponse) => {
+    // console.log(err);
    });
   }
 
-  title = "";
-
   addCandidacy() {
-    if( this.contentOffer == ""){
+    if ( this.contentOffer == '') {
       this.erreur1 = true;
-    }else{
-      var cand = new Candidacy();
+    } else {
+      const cand = new Candidacy();
       cand.body = this.contentOffer;
-      
-      if(this.noDocs){
+
+      if (this.noDocs) {
         this.postCandidacy(cand);
-      }else{
-        
-        var name = "";
-        var nb = 0;
-        for(var i=0;i<this.selectedFiles.length;i++){
+      } else {
+
+        let name = '';
+        let nb = 0;
+        for (let i = 0; i < this.selectedFiles.length; i++) {
           this.selectedFile = this.selectedFiles[i];
-          this.size = Math.round(this.selectedFile.size/1024) + ' Ko';
+          this.size = Math.round(this.selectedFile.size / 1024) + ' Ko';
           this.title = this.selectedFile.name;
           name = this.selectedFiles[i].name;
-          
-          
+
+
           const file = this.selectedFile;
           this.form.patchValue({ file: file });
           const reader = new FileReader();
-  
+
           reader.onload = () => {
           this.fileData = reader.result as string;
           };
-  
+
           reader.readAsDataURL(file);
-    
-          var type = this.selectedFile.name.split('.')[this.selectedFile.name.split('.').length-1];
-          var fData = new FormData();
-          var doc = new Document();
-          
-          fData.append("name",this.form.value.name);
-          fData.append("file",  this.selectedFile, this.selectedFile.name);
-          //console.log(fData);
-          this.http.post('https://backend-ticenit.herokuapp.com/admin/newsdoc?type='+type, fData ,{reportProgress : true, observe : 'events'}).subscribe((event : any)=>{
-          if(event.type === HttpEventType.UploadProgress )  {
-            for(var j = 0; j<this.status.length;j++){
+
+          const type = this.selectedFile.name.split('.')[this.selectedFile.name.split('.').length - 1];
+          const fData = new FormData();
+          const doc = new Document();
+
+          fData.append('name', this.form.value.name);
+          fData.append('file',  this.selectedFile, this.selectedFile.name);
+          // console.log(fData);
+          this.http.post('https://backend-ticenit.herokuapp.com/admin/newsdoc?type=' + type, fData , {reportProgress : true, observe : 'events'}).subscribe((event: any) => {
+          if (event.type === HttpEventType.UploadProgress )  {
+            for (let j = 0; j < this.status.length; j++) {
               console.log(event)
-              if(eval(this.status[j].id) < event.total + 100 && eval(this.status[j].id) > event.total - 100 && this.status[j].status < 100){
-              if(this.status[j].status < Math.round(event.loaded/event.total * 100)) {
-                this.status[j].status = Math.round(event.loaded/event.total * 100) ;
+              if (eval(this.status[j].id) < event.total + 100 && eval(this.status[j].id) > event.total - 100 && this.status[j].status < 100) {
+              if (this.status[j].status < Math.round(event.loaded / event.total * 100)) {
+                this.status[j].status = Math.round(event.loaded / event.total * 100) ;
                 break;
               }
-              
+
               }
             }
-          }else if(event.type === HttpEventType.Response){
+          } else if (event.type === HttpEventType.Response) {
             cand.docs.push({link : event.body.link, name : event.body.name});
             console.log(event);
             nb++;
-            if(nb === this.status.length){//c'est fini
+            if (nb === this.status.length) {// c'est fini
               this.selectedFiles = [];
               this.status = [];
               this.title = '';
@@ -172,22 +172,22 @@ export class HomeUserComponent implements OnInit {
             }
           }
           },
-          (err : HttpErrorResponse)=>{
+          (err: HttpErrorResponse) => {
           console.log(err);
           });
-          
+
           this.form.reset();
           this.fileData = null;
         }
-      
-        
+
+
       }
-      
+
     }
-    
-    
-    
+
+
+
   }
-  
+
 
 }
