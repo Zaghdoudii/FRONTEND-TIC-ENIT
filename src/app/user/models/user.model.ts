@@ -1,21 +1,22 @@
 export class User {
-    firstname: string = "";
-    lastname: string = "";
-    email: string = "";
+    firstname = '';
+    lastname = '';
+    email = '';
     password: string;
-    country: string = "";
-    city:string = "";
-    address: string = "";
+    country = '';
+    city = '';
+    address = '';
     type: string;
-    workAt: string = "";
-    class:string;
-    linkedin: string = "";
-    picture:string ;
-    phone:string  = "";
-    aboutme:string = "";
-    promotion:string;
-    constructor(type : string){
+    workAt = '';
+    class: string;
+    linkedin = '';
+    picture: string ;
+    phone  = '';
+    aboutme = '';
+    promotion: string;
+    constructor(type: string) {
         this.type = type;
-        
+
     }
 }
+

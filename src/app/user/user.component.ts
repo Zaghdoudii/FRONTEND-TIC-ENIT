@@ -4,7 +4,10 @@ import 'rxjs/add/operator/filter';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
-import * as $ from 'jquery';@Component({
+import * as $ from 'jquery';
+
+
+@Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
@@ -15,7 +18,7 @@ export class UserComponent implements OnInit {
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
   public location: Location;
-   private router: Router;
+  private router: Router;
   constructor() {}
 
   ngOnInit() {

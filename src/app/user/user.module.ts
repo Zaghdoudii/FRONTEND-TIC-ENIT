@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProfileUserComponent } from './profile-user/profile-user.component';
-
 import { IsUserGuard } from './guards/is-user.guard';
 import { UserRoutes } from './user.routing';
 import { RouterModule } from '@angular/router';
@@ -20,32 +18,48 @@ import { MapUserComponent } from './map-user/map-user.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { ProgressBarModule } from 'angular-progress-bar';
 import { MapAdminComponent } from './map-admin/map-admin.component';
+import { UserPostsComponent } from './user-posts/user-posts.component';
+import {IconsModule, MDBRootModule} from 'angular-bootstrap-md';
+import { NewPostComponent } from './new-post/new-post.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(UserRoutes),
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
-    UserComponentsModule,
-    ProgressBarModule
-  ],
-  declarations: [
-    HomeUserComponent,
-    ProfileUserComponent,
-    SearchUserComponent,
-    
-    MapUserComponent,
-    DocumentsComponent,
-    MapAdminComponent,
-  ],
-  providers: [IsUserGuard],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(UserRoutes),
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatRippleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatTooltipModule,
+        UserComponentsModule,
+        ProgressBarModule,
+        IconsModule,
+        IconsModule,
+        MDBRootModule,
+        MatDialogModule,
+        HttpClientModule
+    ],
+    declarations: [
+        HomeUserComponent,
+        ProfileUserComponent,
+        SearchUserComponent,
+        MapUserComponent,
+        DocumentsComponent,
+        MapAdminComponent,
+        UserPostsComponent,
+        NewPostComponent,
+    ],
+    providers: [IsUserGuard],
+    exports: [
+        UserPostsComponent,
+        NewPostComponent
+    ]
 })
 export class UserModule { }
