@@ -1,16 +1,16 @@
 export class News {
-    date : string = "";
-    title: string = "";
-    content : string = "";
-    picture : string = "";
+    date = '';
+    title = '';
+    content = '';
+    picture = '';
     docs: any[] = [];
-    public constructor(){
-        var dateObj = new Date();
-        var month = dateObj.getUTCMonth() + 1; //months from 1-12
-        var day = dateObj.getUTCDate();
-        var year = dateObj.getUTCFullYear();
+    public constructor() {
+        let dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1; // months from 1-12
+        let day = dateObj.getUTCDate();
+        let year = dateObj.getUTCFullYear();
 
-        this.date = day + "/" + month + "/" + year;
-        
+        this.date = day + '/' + month + '/' + year;
+
     }
 }

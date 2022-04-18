@@ -36,7 +36,7 @@ export class MapAdminComponent implements AfterViewInit {
     localStorage.removeItem("entity");
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken") });
     this.addresses.forEach(addr => {
-      this.http.get("https://backend-ticenit.herokuapp.com/" + this.entity + "/location?property=email&key=" + addr, { headers: reqHeader }).subscribe((data: any) => {
+      this.http.get("http://localhost:3000/" + this.entity + "/location?property=email&key=" + addr, { headers: reqHeader }).subscribe((data: any) => {
         console.log(data);
         if (data[0].lat != null && data[0].lng != null) {
           var coord = {

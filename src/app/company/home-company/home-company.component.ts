@@ -68,7 +68,7 @@ export class HomeCompanyComponent implements OnInit {
 
   postOffer(offer : Offer){
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("companyToken")});
-    this.http.post("https://backend-ticenit.herokuapp.com/offers",offer ,{ headers: reqHeader }).subscribe((data : any)=>{
+    this.http.post("http://localhost:3000/offers",offer ,{ headers: reqHeader }).subscribe((data : any)=>{
      console.log(data);
     this.offerTitle = "";
     this.content = "";
@@ -121,7 +121,7 @@ export class HomeCompanyComponent implements OnInit {
           fData.append("name",this.form.value.name);
           fData.append("file",  this.selectedFile, this.selectedFile.name);
           //console.log(fData);
-          this.http.post('https://backend-ticenit.herokuapp.com/admin/newsdoc?type='+type, fData ,{reportProgress : true, observe : 'events'}).subscribe((event : any)=>{
+          this.http.post('http://localhost:3000/admin/newsdoc?type='+type, fData ,{reportProgress : true, observe : 'events'}).subscribe((event : any)=>{
           if(event.type === HttpEventType.UploadProgress )  {
             for(var j = 0; j<this.status.length;j++){
               console.log(event)
@@ -163,9 +163,9 @@ export class HomeCompanyComponent implements OnInit {
   }
 
   getOffers(){
-    console.log("https://backend-ticenit.herokuapp.com/offers/myoffers?id="+localStorage.getItem('company_id'));
+    console.log("http://localhost:3000/offers/myoffers?id="+localStorage.getItem('company_id'));
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("companyToken")});
-    this.http.get("https://backend-ticenit.herokuapp.com/offers/myoffers?id="+localStorage.getItem('company_id') ,{ headers: reqHeader }).subscribe((data : any) => {
+    this.http.get("http://localhost:3000/offers/myoffers?id="+localStorage.getItem('company_id') ,{ headers: reqHeader }).subscribe((data : any) => {
       this.offers = data;
       console.log(this.offers);
     },
@@ -176,7 +176,7 @@ export class HomeCompanyComponent implements OnInit {
 
   deleteOffer(id : string){
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("companyToken")});
-    this.http.delete("https://backend-ticenit.herokuapp.com/offers?id="+id,{ headers: reqHeader }).subscribe((data : any) => {
+    this.http.delete("http://localhost:3000/offers?id="+id,{ headers: reqHeader }).subscribe((data : any) => {
       console.log(data);
       this.getOffers();
     },
@@ -214,7 +214,7 @@ export class HomeCompanyComponent implements OnInit {
     offer.type = (<HTMLInputElement>document.getElementById("selectType")).value ;
     console.log(offer);
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("companyToken")});
-    this.http.patch("https://backend-ticenit.herokuapp.com/offers?id="+this.idUpdate,offer,{ headers: reqHeader }).subscribe((data : any) => {
+    this.http.patch("http://localhost:3000/offers?id="+this.idUpdate,offer,{ headers: reqHeader }).subscribe((data : any) => {
       console.log(data);
       this.togglePopup();
       this.getOffers();

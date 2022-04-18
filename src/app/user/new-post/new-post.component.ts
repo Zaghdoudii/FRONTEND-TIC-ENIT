@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Post} from '../classes/post';
-import {CreatPostService} from '../services/creat-post.service';
 import { MatDialog } from '@angular/material/dialog';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-new-post',
@@ -9,19 +10,34 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./new-post.component.css']
 })
 export class NewPostComponent implements OnInit {
-  newpost = new Post('topic', 'title', 'description', 'body');
+  newpost = new Post('', '', '', '');
 
-  constructor(private _creatPost: CreatPostService, private dialogRef: MatDialog) { }
+  constructor( private dialogRef: MatDialog, private http: HttpClient) { }
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this._creatPost.sendPost(this.newpost)
-        .subscribe(
-            data => console.log('succes', data),
-            error => console.log('error: ', error)
-        )
-    this.dialogRef.closeAll()
+    this.http.post('http://localhost:3000/student/posts', this.newpost).subscribe((data: any) => {
+          console.log(data);
+          this.newpost = {
+            topic: '',
+            title: '',
+            description: '',
+            date: '',
+            body: '',
+            userName: ''
+          };
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+        });
+
+   // this._creatPost.sendPost(this.newpost)
+     //   .subscribe(
+       //     data => console.log('succes', data),
+         //   error => console.log('error: ', error)
+       // )
+    this.dialogRef.closeAll();
   }
 
 }

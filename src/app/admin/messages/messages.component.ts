@@ -23,7 +23,7 @@ export class MessagesComponent implements OnInit {
   }
   deleteMessage(id : string){
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
-    this.http.delete("https://backend-ticenit.herokuapp.com/admin/message/"+ id,{ headers: reqHeader }).subscribe((data : any)=>{
+    this.http.delete("http://localhost:3000/admin/message/"+ id,{ headers: reqHeader }).subscribe((data : any)=>{
      console.log(data);
       this.getMessages();
    },
@@ -35,7 +35,7 @@ export class MessagesComponent implements OnInit {
   getMessages(){
     
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
-    this.http.get("https://backend-ticenit.herokuapp.com/admin/message",{ headers: reqHeader }).subscribe((data : any)=>{
+    this.http.get("http://localhost:3000/admin/message",{ headers: reqHeader }).subscribe((data : any)=>{
      console.log(data);
       this.messages = data;
       if(this.messages.length == 0){

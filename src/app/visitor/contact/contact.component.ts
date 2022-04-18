@@ -32,7 +32,7 @@ export class ContactComponent implements OnInit {
 
       this.message.date = day + "/" + month + "/" + year;
 
-      this.http.post("https://backend-ticenit.herokuapp.com/admin/message", this.message).subscribe((data: any) => {
+      this.http.post("http://localhost:3000/admin/message", this.message).subscribe((data: any) => {
         console.log(data);
         this.message = {
           name: "",

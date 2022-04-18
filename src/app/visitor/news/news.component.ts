@@ -7,8 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
+  news = [];
+  page = 'send';
+  message = {
+    name : '',
+    email : '',
+    message : '',
+    date : '',
+    lu : false
+  };
+  erreur1 = false;
+  public popup = 'home';
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getNews();
@@ -21,37 +32,26 @@ export class NewsComponent implements OnInit {
     }
   }, 5000);*/
   }
-  news = [];
-  page = "send";
-  message = {
-    name : "",
-    email : "",
-    message : "",
-    date : "",
-    lu : false
-  };
-  erreur1 = false;
-  public popup = 'home';
-  public togglePopup(){
+  public togglePopup() {
     this.popup = 'home';
-    document.getElementById("popup-1").classList.toggle("active");
+    document.getElementById('popup-1').classList.toggle('active');
   }
-  public createUserAccount(){
+  public createUserAccount() {
     this.popup = 'createUserAccount';
   }
-  public createCompanyAccount(){
+  public createCompanyAccount() {
     this.popup = 'createCompanyAccount';
   }
-  public loginCompany(){
+  public loginCompany() {
     this.popup = 'loginCompany';
   }
-  
-  getNews(){
-    this.http.get("https://backend-ticenit.herokuapp.com/admin/news").subscribe((data : any) => {
+
+  getNews() {
+    this.http.get('http://localhost:3000/admin/news').subscribe((data: any) => {
       this.news = data;
       console.log(this.news);
     },
-    (err : HttpErrorResponse)=>{
+    (err: HttpErrorResponse) => {
     console.log(err);
     });
   }

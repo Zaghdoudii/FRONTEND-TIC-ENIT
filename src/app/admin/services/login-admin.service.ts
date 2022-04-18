@@ -8,11 +8,11 @@ import { Admin } from '../models/admin.model';
 })
 export class LoginAdminService {
 
-   //readonly url = 'https://backend-ticenit.herokuapp.com/admin';
+   //readonly url = 'http://localhost:3000/admin';
    constructor(private http : HttpClient) { }
    loginUser(admin : Admin){
      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json','No-Auth':'True' });
-     return this.http.post('https://backend-ticenit.herokuapp.com/admin', admin, { headers: reqHeader });
+     return this.http.post('http://localhost:3000/admin', admin, { headers: reqHeader });
    }
 }
 
