@@ -6,11 +6,11 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class RegisterUserService {
-  //readonly url = 'https://backend-ticenit.herokuapp.com/student/signup';
+  //readonly url = 'http://localhost:3000/student/signup';
   constructor(private http: HttpClient) { }
 
   registerUser(user : User){
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json','No-Auth':'True' });
-    return this.http.post('https://backend-ticenit.herokuapp.com/student/signup', user, { headers: reqHeader });
+    return this.http.post('http://localhost:3000/student/signup', user, { headers: reqHeader });
   }
 }

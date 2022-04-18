@@ -184,7 +184,7 @@ export class AddUsersComponent implements OnInit {
     document.getElementById("submit-btn").setAttribute("style","cursor: not-allowed! important;");
     
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
-    this.http.post('https://backend-ticenit.herokuapp.com/admin/student/add', {students : this.users}, { headers: reqHeader }).subscribe((data : any)=>{
+    this.http.post('http://localhost:3000/admin/student/add', {students : this.users}, { headers: reqHeader }).subscribe((data : any)=>{
       this.page = "success";
       console.log(data);
    },

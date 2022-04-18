@@ -10,29 +10,29 @@ import { News } from '../models/news.model';
 })
 export class HomeAdminComponent implements OnInit {
 
-  
-  title = "";
-  newsTitle = "";
-  content = "";
+
+  title = '';
+  newsTitle = '';
+  content = '';
   docs = [];
-  
+
   noPicture = true;
   noDocs = true;
-  
+
   erreur1 = false;
-  
-  selectedFile : File;
-  selectedImage : File;
+
+  selectedFile: File;
+  selectedImage: File;
   form: FormGroup;
   fileData: string;
   size = '';
-  selectedDoc : Document = new Document();
+  selectedDoc: Document = new Document();
   status = [];
   selectedFiles = [];
-  imagePath = "../../../assets/img/addpic.png";
+  imagePath = '../../../assets/img/addpic.png';
   news = [];
   constructor(private http: HttpClient) { }
-  
+
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl(null),
@@ -44,9 +44,9 @@ export class HomeAdminComponent implements OnInit {
   onFileChanged(event) {
     this.selectedFiles = (event.target).files;
     console.log(this.selectedFiles);
-    for(var i = 0;i<this.selectedFiles.length;i++){
+    for (let i = 0; i < this.selectedFiles.length; i++) {
       this.status.push({
-        id : this.selectedFiles[i].size + 300 +'',
+        id : this.selectedFiles[i].size + 300 + '',
         status : 0,
         name : this.selectedFiles[i].name,
       });
@@ -58,159 +58,159 @@ export class HomeAdminComponent implements OnInit {
     this.selectedImage = (event.target).files[0];
     console.log(this.selectedImage);
     this.noPicture = false;
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function (e) {
-      document.getElementById('pic').setAttribute('src',e.target.result.toString());
+      document.getElementById('pic').setAttribute('src', e.target.result.toString());
     };
     reader.readAsDataURL(this.selectedImage);
   }
 
-  postNews(news : News){
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
-    this.http.post("https://backend-ticenit.herokuapp.com/admin/news",news ,{ headers: reqHeader }).subscribe((data : any)=>{
+  postNews(news: News) {
+    const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('adminToken')});
+    this.http.post('http://localhost:3000/admin/news', news , { headers: reqHeader }).subscribe((data: any) => {
      console.log(data);
-    this.newsTitle = "";
-    this.content = "";
-    this.imagePath = "../../../assets/img/addpic.png";
+    this.newsTitle = '';
+    this.content = '';
+    this.imagePath = '../../../assets/img/addpic.png';
     this.getNews();
    },
-   (err : HttpErrorResponse)=>{
+   (err: HttpErrorResponse) => {
     console.log(err);
    });
   }
-  
+
   addNews() {
-    if(this.newsTitle == "" || this.content == ""){
+    if (this.newsTitle == '' || this.content == '') {
       this.erreur1 = true;
-    }else{
-      var news = new News();
+    } else {
+      const news = new News();
       news.content = this.content;
       news.title = this.newsTitle;
-      if(this.noDocs && this.noPicture){
+      if (this.noDocs && this.noPicture) {
         this.postNews(news);
-      }else{
-        if(!this.noPicture){
-          var name = "";
+      } else {
+        if (!this.noPicture) {
+          let name = '';
           this.selectedFile = this.selectedImage;
-          this.size = Math.round(this.selectedFile.size/1024) + ' Ko';
+          this.size = Math.round(this.selectedFile.size / 1024) + ' Ko';
           this.title = this.selectedFile.name;
           name = this.selectedFile.name;
-         
-          
+
+
           const file = this.selectedFile;
           this.form.patchValue({ file: file });
           const reader = new FileReader();
-  
+
           reader.onload = () => {
           this.fileData = reader.result as string;
           };
-  
+
           reader.readAsDataURL(file);
-    
-          var type = this.selectedFile.name.split('.')[this.selectedFile.name.split('.').length-1];
-          var fData = new FormData();
-          
-          
-          fData.append("name",this.form.value.name);
-          fData.append("file",  this.selectedFile, this.selectedFile.name);
+
+          const type = this.selectedFile.name.split('.')[this.selectedFile.name.split('.').length - 1];
+          const fData = new FormData();
+
+
+          fData.append('name', this.form.value.name);
+          fData.append('file',  this.selectedFile, this.selectedFile.name);
           console.log(fData);
 
-          this.http.post('https://backend-ticenit.herokuapp.com/admin/newsdoc?type='+type, fData ).subscribe((data : any)=>{
+          this.http.post('http://localhost:3000/admin/newsdoc?type=' + type, fData ).subscribe((data: any) => {
             console.log(data);
             news.picture = data.link;
-            if(this.noDocs){
+            if (this.noDocs) {
               this.postNews(news);
             }
           },
-          (err : HttpErrorResponse)=>{
+          (err: HttpErrorResponse) => {
             console.log(err);
           });
         }
-        if(!this.noDocs){
-          var name = "";
-          var nb = 0;
-          for(var i=0;i<this.selectedFiles.length;i++){
+        if (!this.noDocs) {
+          let name = '';
+          let nb = 0;
+          for (let i = 0; i < this.selectedFiles.length; i++) {
             this.selectedFile = this.selectedFiles[i];
-            this.size = Math.round(this.selectedFile.size/1024) + ' Ko';
+            this.size = Math.round(this.selectedFile.size / 1024) + ' Ko';
             this.title = this.selectedFile.name;
             name = this.selectedFiles[i].name;
-           
-            
+
+
             const file = this.selectedFile;
             this.form.patchValue({ file: file });
             const reader = new FileReader();
-    
+
             reader.onload = () => {
             this.fileData = reader.result as string;
             };
-    
+
             reader.readAsDataURL(file);
-      
-            var type = this.selectedFile.name.split('.')[this.selectedFile.name.split('.').length-1];
-            var fData = new FormData();
-            var doc = new Document();
-            
-            fData.append("name",this.form.value.name);
-            fData.append("file",  this.selectedFile, this.selectedFile.name);
-            //console.log(fData);
-            this.http.post('https://backend-ticenit.herokuapp.com/admin/newsdoc?type='+type, fData ,{reportProgress : true, observe : 'events'}).subscribe((event : any)=>{
-            if(event.type === HttpEventType.UploadProgress )  {
-             for(var j = 0; j<this.status.length;j++){
+
+            const type = this.selectedFile.name.split('.')[this.selectedFile.name.split('.').length - 1];
+            const fData = new FormData();
+            const doc = new Document();
+
+            fData.append('name', this.form.value.name);
+            fData.append('file',  this.selectedFile, this.selectedFile.name);
+            // console.log(fData);
+            this.http.post('http://localhost:3000/admin/newsdoc?type=' + type, fData , {reportProgress : true, observe : 'events'}).subscribe((event: any) => {
+            if (event.type === HttpEventType.UploadProgress )  {
+             for (let j = 0; j < this.status.length; j++) {
                console.log(event)
-               if(eval(this.status[j].id) < event.total + 100 && eval(this.status[j].id) > event.total - 100 && this.status[j].status < 100){
-                if(this.status[j].status < Math.round(event.loaded/event.total * 100)) {
-                  this.status[j].status = Math.round(event.loaded/event.total * 100) ;
+               if (eval(this.status[j].id) < event.total + 100 && eval(this.status[j].id) > event.total - 100 && this.status[j].status < 100) {
+                if (this.status[j].status < Math.round(event.loaded / event.total * 100)) {
+                  this.status[j].status = Math.round(event.loaded / event.total * 100) ;
                   break;
                 }
-                
+
                }
              }
-            }else if(event.type === HttpEventType.Response){
+            } else if (event.type === HttpEventType.Response) {
               news.docs.push({link : event.body.link, name : event.body.name});
               console.log(event);
               nb++;
-              if(nb === this.status.length){//c'est fini
+              if (nb === this.status.length) {// c'est fini
                 this.selectedFiles = [];
                 this.status = [];
                 this.title = '';
                 this.postNews(news);
-                
+
               }
             }
             },
-            (err : HttpErrorResponse)=>{
+            (err: HttpErrorResponse) => {
             console.log(err);
             });
             this.form.reset();
             this.fileData = null;
           }
         }
-        
+
       }
-      
+
     }
-    
-    
-    
+
+
+
   }
 
-  getNews(){
-    this.http.get("https://backend-ticenit.herokuapp.com/admin/news").subscribe((data : any) => {
+  getNews() {
+    this.http.get('http://localhost:3000/admin/news').subscribe((data: any) => {
       this.news = data;
       console.log(this.news);
     },
-    (err : HttpErrorResponse)=>{
+    (err: HttpErrorResponse) => {
     console.log(err);
     });
   }
 
-  deleteNews(id : string){
-    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
-    this.http.delete("https://backend-ticenit.herokuapp.com/admin/news/"+id,{ headers: reqHeader }).subscribe((data : any) => {
+  deleteNews(id: string) {
+    const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('adminToken')});
+    this.http.delete('http://localhost:3000/admin/news/' + id, { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
       this.getNews();
     },
-    (err : HttpErrorResponse)=>{
+    (err: HttpErrorResponse) => {
     console.log(err);
     });
   }

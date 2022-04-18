@@ -44,7 +44,7 @@ export class HomeUserComponent implements OnInit {
   getOffers() {
 
     const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
-    this.http.get('https://backend-ticenit.herokuapp.com/offers' , { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get('http://localhost:3000/offers' , { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
       this.offers1 = data;
       this.getCompaniesInfo();
@@ -68,7 +68,7 @@ export class HomeUserComponent implements OnInit {
     });
     console.log(this.companiesId);
     const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
-    this.http.post('https://backend-ticenit.herokuapp.com/student/companiesinfo' , { companies : this.companiesId}, { headers: reqHeader }).subscribe((data: any) => {
+    this.http.post('http://localhost:3000/student/companiesinfo' , { companies : this.companiesId}, { headers: reqHeader }).subscribe((data: any) => {
       this.companiesInfo = data;
       this.offers = this.offers1;
       console.log(data);
@@ -98,7 +98,7 @@ export class HomeUserComponent implements OnInit {
   postCandidacy(cand: Candidacy) {
     console.log(cand);
     const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
-    this.http.post('https://backend-ticenit.herokuapp.com/student/apply/' + this.idOffer, cand , { headers: reqHeader }).subscribe((data: any) => {
+    this.http.post('http://localhost:3000/student/apply/' + this.idOffer, cand , { headers: reqHeader }).subscribe((data: any) => {
      // console.log(data);
 
     this.contentOffer = '';
@@ -147,7 +147,7 @@ export class HomeUserComponent implements OnInit {
           fData.append('name', this.form.value.name);
           fData.append('file',  this.selectedFile, this.selectedFile.name);
           // console.log(fData);
-          this.http.post('https://backend-ticenit.herokuapp.com/admin/newsdoc?type=' + type, fData , {reportProgress : true, observe : 'events'}).subscribe((event: any) => {
+          this.http.post('http://localhost:3000/admin/newsdoc?type=' + type, fData , {reportProgress : true, observe : 'events'}).subscribe((event: any) => {
           if (event.type === HttpEventType.UploadProgress )  {
             for (let j = 0; j < this.status.length; j++) {
               console.log(event)

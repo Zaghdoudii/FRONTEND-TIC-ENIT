@@ -63,7 +63,7 @@ export class SearchUserComponent implements OnInit {
 
   search() {
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken") });
-    this.http.get("https://backend-ticenit.herokuapp.com/admin/search/" + this.entity + "?property=" + this.property + "&key=" + this.key, { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get("http://localhost:3000/admin/search/" + this.entity + "?property=" + this.property + "&key=" + this.key, { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
       if (this.entity == "student") {
         this.users = data;
@@ -81,7 +81,7 @@ export class SearchUserComponent implements OnInit {
 
   getAllUsers() {
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken") });
-    this.http.get("https://backend-ticenit.herokuapp.com/admin/allstudents", { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get("http://localhost:3000/admin/allstudents", { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
       this.users = data;
       this.addresses = [];
@@ -95,7 +95,7 @@ export class SearchUserComponent implements OnInit {
   getAllCompanies() {
     this.addresses = [];
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken") });
-    this.http.get("https://backend-ticenit.herokuapp.com/admin/allcompanies", { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get("http://localhost:3000/admin/allcompanies", { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
       this.companies = data;
       this.addresses = [];
@@ -204,7 +204,7 @@ export class SearchUserComponent implements OnInit {
   updateProfileUser() {
     console.log(this.user);
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken") });
-    this.http.patch("https://backend-ticenit.herokuapp.com/admin/student/" + this.idUserUpdate, this.user, { headers: reqHeader }).subscribe((data: any) => {
+    this.http.patch("http://localhost:3000/admin/student/" + this.idUserUpdate, this.user, { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
 
       this.pageuser = "profile";
@@ -244,7 +244,7 @@ export class SearchUserComponent implements OnInit {
   updateProfileCompany() {
     console.log(this.company);
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken") });
-    this.http.patch("https://backend-ticenit.herokuapp.com/admin/company/" + this.idCompanyUpdate, this.company, { headers: reqHeader }).subscribe((data: any) => {
+    this.http.patch("http://localhost:3000/admin/company/" + this.idCompanyUpdate, this.company, { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
 
       this.pageCompany = "profile";

@@ -1,16 +1,9 @@
+<div class="container">
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Creat new post</h5>
-    <button
-            type="button"
-            class="btn-close"
-            aria-label="Close"
-    ></button>
 </div>
 <div class="modal-body">
     <form #postForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
-        {{ postForm.value | json}}
-        <hr>
-        {{ newpost | json}}
         <div class="form-group">
             <input type="text" id="topic" name="topic" class="form-control" placeholder="General Topic" [(ngModel)]="newpost.topic" required><br>
             <input type="text" class="form-control" id="title" name="title" placeholder="title" [(ngModel)]="newpost.title" required><br>
@@ -20,3 +13,4 @@
         </div>
     </form>
 </div>
+

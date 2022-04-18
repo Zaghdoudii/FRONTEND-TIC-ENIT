@@ -41,7 +41,7 @@ export class AdminNavbarComponent implements OnInit {
     
     getNbMessages(){
         var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("adminToken")});
-        this.http.get("https://backend-ticenit.herokuapp.com/admin/nbmessage",{ headers: reqHeader }).subscribe((data : any)=>{
+        this.http.get("http://localhost:3000/admin/nbmessage",{ headers: reqHeader }).subscribe((data : any)=>{
          console.log(data);
           this.nb = data.nb;
        },

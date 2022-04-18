@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {NewPostComponent} from '../new-post/new-post.component';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-user-posts',
@@ -9,14 +10,23 @@ import {NewPostComponent} from '../new-post/new-post.component';
 })
 export class UserPostsComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialog) {}
+ posts = [];
+  constructor(private dialogRef: MatDialog, private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.getPosts();
   }
   openDialog() {
     this.dialogRef.open(NewPostComponent);
     }
-  closeDialog(){
-    this.dialogRef.closeAll()
+
+  getPosts() {
+    this.http.get('http://localhost:3000/student/posts').subscribe((data: any) => {
+          this.posts = data;
+          console.log(this.posts);
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+        });
   }
 }
