@@ -47,7 +47,7 @@ export class NewsComponent implements OnInit {
   }
 
   getNews() {
-    this.http.get('http://localhost:3000/admin/news').subscribe((data: any) => {
+    this.http.get('http://backend-tic-enit.herokuapp.com/admin/news').subscribe((data: any) => {
       this.news = data;
       console.log(this.news);
     },

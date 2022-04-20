@@ -21,7 +21,7 @@ export class UserPostsComponent implements OnInit {
     }
 
   getPosts() {
-    this.http.get('http://localhost:3000/student/posts').subscribe((data: any) => {
+    this.http.get('http://backend-tic-enit.herokuapp.com/student/posts').subscribe((data: any) => {
           this.posts = data;
           console.log(this.posts);
         },

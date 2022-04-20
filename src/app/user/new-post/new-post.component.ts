@@ -17,7 +17,7 @@ export class NewPostComponent implements OnInit {
   }
 
   onSubmit() {
-    this.http.post('http://localhost:3000/student/posts', this.newpost).subscribe((data: any) => {
+    this.http.post('http://backend-tic-enit.herokuapp.com/student/posts', this.newpost).subscribe((data: any) => {
           console.log(data);
           this.newpost = {
             topic: '',
