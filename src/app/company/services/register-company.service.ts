@@ -11,6 +11,6 @@ export class RegisterCompanyService {
 
   registerCompany(company : Company){
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json','No-Auth':'True' });
-    return this.http.post('http://localhost:3000/company/signup', company, { headers: reqHeader });
+    return this.http.post('http://backend-tic-enit.herokuapp.com/company/signup', company, { headers: reqHeader });
   }
 }

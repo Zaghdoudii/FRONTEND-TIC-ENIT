@@ -18,7 +18,7 @@ export class ProfileUserComponent implements OnInit {
   imageExiste = true;
 
 
-  readonly url = 'http://localhost:3000/student/';
+  readonly url = 'http://backend-tic-enit.herokuapp.com/student/';
   user = new User('student');
   page = 'profile';
   picture = '../../../assets/img/profil.png';
@@ -73,7 +73,7 @@ export class ProfileUserComponent implements OnInit {
     profileData.append('image',  this.selectedFile, this.selectedFile.name);
     console.log(profileData);
     const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
-    this.http.post('http://localhost:3000/student/upload/' + localStorage.getItem('user_id'), profileData, { headers: reqHeader }).subscribe((data: any) => {
+    this.http.post('http://backend-tic-enit.herokuapp.com/student/upload/' + localStorage.getItem('user_id'), profileData, { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
       this.page = 'profile';
       window.location.reload();
@@ -146,7 +146,7 @@ export class ProfileUserComponent implements OnInit {
     document.getElementById('savechanges').setAttribute('disabled', 'true');
     document.getElementById('savechanges').setAttribute('style', 'cursor: not-allowed! important;');
     const reqHeader = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem('userToken')});
-    this.http.patch('http://localhost:3000/student/' + localStorage.getItem('user_id'), this.user, { headers: reqHeader }).subscribe((data: any) => {
+    this.http.patch('http://backend-tic-enit.herokuapp.com/student/' + localStorage.getItem('user_id'), this.user, { headers: reqHeader }).subscribe((data: any) => {
       console.log(data);
       if (this.modifPic) {
         this.updateProfilePicture();
